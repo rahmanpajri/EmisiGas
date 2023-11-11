@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "349741829420",
+    "project_id": "emisigas",
+    "storage_bucket": "emisigas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349741829420:android:a963bee0d8d4c733b4b089",
+        "android_client_info": {
+          "package_name": "com.jri.emisigas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpGRKYIKC1FP8XPWB3X7OaY8dIlieloqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
