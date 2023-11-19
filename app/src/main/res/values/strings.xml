@@ -27,4 +27,12 @@
 
     <!--profile-->
     <string name="vehicle">Your Vehicle</string>
+    <string name="car_type">Car Type</string>
+    <string name="capacity">xxxx cc</string>
+    <string name="license">License</string>
+    <string name="avg_consumption">Avg Consumption</string>
+    <string name="last_trip">Last Trip</string>
+    <string name="distance">Distance</string>
+    <string name="consumption">Consumption</string>
+    <string name="edit">Edit</string>
 </resources>

@@ -5,60 +5,260 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeFragment" >
+    tools:context=".home.HomeFragment">
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:background="@drawable/bg_home_radius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/start_trip"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/enter_your_name"
+        android:textSize="20sp"
+        android:fontFamily="@font/bold"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/car_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/car_type"
+        android:textSize="24sp"
+        android:fontFamily="@font/bold"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name"/>
+
+    <TextView
+        android:id="@+id/capacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bold"
+        android:layout_marginEnd="12dp"
+        android:text="@string/capacity"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/plat"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/car_type" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/twotone_edit_24"
+        app:layout_constraintTop_toBottomOf="@id/capacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/edit" />
+
+    <TextView
+        android:id="@+id/plat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/license"
+        android:textSize="16sp"
+        android:fontFamily="@font/semibold"
+        android:textColor="?attr/colorOnPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/car_type"/>
+
+    <com.jri.emisigas.custom.CustomButton
+        android:id="@+id/button"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:alpha="0.4"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@id/tips"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plat" />
+
+    <ImageView
+        android:id="@+id/start_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/twotone_start_24"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toTopOf="@id/start_text"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        android:contentDescription="@string/start_trip" />
+
+    <TextView
+        android:id="@+id/start_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/semibold"
+        android:text="@string/start_trip"
+        android:textColor="?attr/colorOnPrimary"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@id/start_icon"/>
+
+    <com.jri.emisigas.custom.CustomButton
+        android:id="@+id/tips"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:alpha="0.4"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button"
+        app:layout_constraintTop_toBottomOf="@+id/plat" />
+
+    <ImageView
+        android:id="@+id/tips_icon"
+        android:layout_width="32dp"
+        android:layout_height="36dp"
+        android:src="@drawable/twotone_tips_and_updates_24"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toTopOf="@id/tips_text"
+        app:layout_constraintEnd_toEndOf="@+id/tips"
+        app:layout_constraintStart_toStartOf="@+id/tips"
+        app:layout_constraintTop_toTopOf="@+id/tips"
+        android:contentDescription="@string/tips" />
+
+    <TextView
+        android:id="@+id/tips_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/semibold"
+        android:text="@string/tips"
+        android:textColor="?attr/colorOnPrimary"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tips"
+        app:layout_constraintEnd_toEndOf="@+id/tips"
+        app:layout_constraintStart_toStartOf="@+id/tips"/>
+
+    <com.jri.emisigas.custom.CustomButton
+        android:id="@+id/avg_consumption"
+        android:layout_width="180dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@id/last_trip"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <View
-        android:id="@+id/avg_consumption"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
+    <TextView
+        android:id="@+id/avg_text"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/customButton"
-        app:layout_constraintEnd_toStartOf="@id/last_trip"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/avg_consumption"
+        android:elevation="12dp"
+        android:textSize="18sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/avg_consumption"
+        app:layout_constraintTop_toTopOf="@id/avg_consumption" />
 
-    <View
-        android:id="@+id/last_trip"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/avg_consumption"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintBottom_toTopOf="@id/customButton"/>
+    <TextView
+        android:id="@+id/avg_count"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:elevation="12dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/avg_consumption"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/avg_consumption"
+        app:layout_constraintStart_toStartOf="@+id/avg_consumption"
+        app:layout_constraintTop_toBottomOf="@+id/avg_text" />
 
     <com.jri.emisigas.custom.CustomButton
-        android:text="@string/tips"
-        android:textColor="?attr/colorOnPrimaryContainer"
-        android:id="@+id/customButton"
-        android:backgroundTint="?attr/colorPrimaryContainer"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        android:id="@+id/last_trip"
+        android:layout_width="180dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/avg_consumption"
+        app:layout_constraintTop_toBottomOf="@+id/view"/>
+
+    <TextView
+        android:id="@+id/last_trip_text"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/last_trip"
+        android:elevation="12dp"
+        android:textSize="18sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/last_trip"
+        app:layout_constraintTop_toTopOf="@id/last_trip" />
+
+    <TextView
+        android:id="@+id/distance_text"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/medium"
+        android:text="@string/distance"
+        android:elevation="12dp"
+        android:textSize="14sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/last_trip"
+        app:layout_constraintTop_toBottomOf="@id/last_trip_text" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/distance"
+        android:elevation="12dp"
+        android:textSize="18sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/last_trip"
+        app:layout_constraintTop_toBottomOf="@id/distance_text" />
+
+    <TextView
+        android:id="@+id/consumption_text"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/medium"
+        android:text="@string/consumption"
+        android:elevation="12dp"
+        android:textSize="14sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/last_trip"
+        app:layout_constraintTop_toBottomOf="@id/distance" />
+
+    <TextView
+        android:id="@+id/consumption"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/consumption"
+        android:elevation="12dp"
+        android:textSize="18sp"
+        android:textColor="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="@+id/last_trip"
+        app:layout_constraintTop_toBottomOf="@id/consumption_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

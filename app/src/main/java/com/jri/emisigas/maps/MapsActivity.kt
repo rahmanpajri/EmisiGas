@@ -3,7 +3,6 @@ package com.jri.emisigas.maps
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -44,12 +43,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var allLatLng = ArrayList<LatLng>()
     private var boundsBuilder = LatLngBounds.Builder()
     private var totalDistance = 0.0
+    private var totalIdleDistance = 0.0
 
     // Constants for idle estimation
     private val IDLE_SPEED_THRESHOLD = 1.0 // km/jam
-    private val IDLE_SPEED_ESTIMATE = 5.0 // km/jam
+    private val IDLE_SPEED_ESTIMATE = 1.0 // km/jam
     private var idleStartTime: Long = 0
     private var isIdleStarted = false
+
+    private var totalIdleTime = 0L
 
     private var totalMovingEmission = 0.0
     private var totalIdleEmission = 0.0
@@ -83,6 +85,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 updateTrackingStatus(false)
                 stopLocationUpdates()
                 val totalEmission = totalIdleEmission + totalMovingEmission
+                val totalDistance = totalIdleDistance + totalDistance
                 Log.d(TAG, "Total Emission: $totalEmission kg CO2")
 
                 // Kirim totalEmission ke ResultActivity
@@ -231,16 +234,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         Log.d(TAG, "onLocationResult: Distance - $distance, Total Distance - $totalDistance km")
 
                         val movingEmission = distance * fuelEfficiency * fuelConsumption
-
                         totalMovingEmission += movingEmission
                         Log.d(TAG, "Moving Emission: $movingEmission kg CO2")
 
+                        // Hitung waktu idle dan emisi saat idle
+                        val idleTimeInSeconds = calculateIdleTime(location)
+                        totalIdleTime += idleTimeInSeconds
+                        val idleDistance = calculateIdleDistance(idleTimeInSeconds)
+                        totalIdleDistance += idleDistance
+                        val idleEmission = idleDistance * fuelEfficiency * fuelConsumptionIdle
+                        totalIdleEmission += idleEmission
+                        Log.d(TAG, "Idle Emission: $idleEmission kg CO2")
+
                         // Hitung total emisi
-                        val totalEmission = totalMovingEmission
+                        val totalEmission = totalMovingEmission + totalIdleEmission
                         Log.d(TAG, "Total Emission: $totalEmission kg CO2")
                     }
-
-
 
                     boundsBuilder.include(lastLatLng)
                     val bounds: LatLngBounds = boundsBuilder.build()
@@ -282,12 +291,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun calculateIdleDistance(idleTimeInSeconds: Long): Double {
-        // Implementasi sesuai dengan kebutuhan aplikasi Anda
-        // Misalnya, menggunakan estimasi kecepatan idle untuk menghitung jarak tempuh saat idle
+        // Menggunakan estimasi kecepatan idle untuk menghitung jarak tempuh saat idle
         val idleSpeed = IDLE_SPEED_ESTIMATE
         return idleSpeed * idleTimeInSeconds.toDouble() / 3600.0 // Konversi ke kilometer
     }
-
 
     private fun startLocationUpdates() {
         try {
@@ -336,5 +343,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private const val TAG = "MapsActivity"
         private const val fuelEfficiency = 69300.0 // kg/TJ
         private const val fuelConsumption = 4.95e-6 // TJ/km
+        private const val fuelConsumptionIdle = 5.0e-6
     }
 }
