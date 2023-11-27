@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".profile.ChangeProfileActivity">
+
+  <TextView
+      android:id="@+id/change_profile"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="160dp"
+      android:fontFamily="@font/bold"
+      android:gravity="center"
+      android:text="@string/change_your_profile"
+      android:textSize="28sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/email_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:layout_marginStart="16dp"
+      android:text="@string/email"
+      android:textSize="16sp"
+      android:fontFamily="@font/semibold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/change_profile"/>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/emailEditTextLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/email_text"
+      app:startIconDrawable="@drawable/baseline_email_24"
+      app:startIconTint="?attr/colorPrimary">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_your_email"
+        android:inputType="textEmailAddress"
+        tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <TextView
+      android:id="@+id/password_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:layout_marginStart="16dp"
+      android:text="@string/password"
+      android:textSize="16sp"
+      android:fontFamily="@font/semibold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout"/>
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/passwordEditTextLayout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/password_text"
+      app:passwordToggleEnabled="true"
+      app:passwordToggleTint="?attr/colorPrimary"
+      app:startIconDrawable="@drawable/baseline_lock_24"
+      app:startIconTint="?attr/colorPrimary">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_your_password"
+        android:inputType="textPassword"
+        app:passwordToggleEnabled="true"
+        tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/changeButton"
+      android:layout_width="match_parent"
+      android:layout_height="52dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginTop="40dp"
+      android:backgroundTint="?attr/colorPrimary"
+      android:text="@string/change_your_profile"
+      android:textColor="?attr/colorOnPrimary"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
+      tools:ignore="TextContrastCheck,VisualLintButtonSize" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>

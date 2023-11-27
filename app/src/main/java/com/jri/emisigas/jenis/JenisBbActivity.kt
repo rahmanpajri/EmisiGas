@@ -1,9 +1,8 @@
 package com.jri.emisigas.jenis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.jri.emisigas.R
+import androidx.appcompat.app.AppCompatActivity
 import com.jri.emisigas.databinding.ActivityJenisBbBinding
 import com.jri.emisigas.maps.MapsActivity
 

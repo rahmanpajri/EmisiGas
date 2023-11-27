@@ -4,25 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="24dp"
     tools:context=".result.ResultActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="72dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/text_result"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/consumption_background"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
+        android:background="?attr/colorTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/mileage_background"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
+        android:background="?attr/colorTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/consumption_background" />
+
+    <TextView
+        android:id="@+id/consumption_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/you_co_consumption_is"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/consumption_background"
+        app:layout_constraintTop_toTopOf="@+id/consumption_background" />
 
     <TextView
         android:id="@+id/totalEmission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         android:text="@string/start_trip"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="24sp"
+        android:fontFamily="@font/bold"
+        app:layout_constraintStart_toStartOf="@+id/consumption_background"
+        app:layout_constraintTop_toBottomOf="@id/consumption_text"/>
+
+    <TextView
+        android:id="@+id/mileage_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/your_mileage_is"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/mileage_background"
+        app:layout_constraintTop_toTopOf="@+id/mileage_background" />
+
     <TextView
         android:id="@+id/totalDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start_trip"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/your_mileage_is"
+        android:textSize="24sp"
+        android:fontFamily="@font/bold"
+        app:layout_constraintStart_toStartOf="@+id/mileage_background"
+        app:layout_constraintTop_toBottomOf="@id/mileage_text"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/to_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:textSize="16sp"
+        android:text="@string/back_to_home"
+        android:fontFamily="@font/semibold"
+        android:textColor="?attr/colorOnSecondaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/totalEmission" />
+        app:layout_constraintTop_toBottomOf="@+id/mileage_background" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

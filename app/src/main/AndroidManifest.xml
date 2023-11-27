@@ -17,6 +17,15 @@
         android:theme="@style/Theme.EmisiGas"
         tools:targetApi="31">
         <activity
+            android:name=".tips.TipsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".vehicle.ChangeVehicleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.ChangeProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".result.ResultActivity"
             android:exported="false" />
         <activity

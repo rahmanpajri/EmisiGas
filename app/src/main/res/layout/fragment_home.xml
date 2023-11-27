@@ -76,11 +76,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/car_type"/>
 
-    <com.jri.emisigas.custom.CustomButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:alpha="0.4"
+        android:layout_width="85dp"
+        android:layout_height="70dp"
+        android:backgroundTint="?attr/colorTertiaryContainer"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@id/tips"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,15 +88,16 @@
 
     <ImageView
         android:id="@+id/start_icon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="28dp"
+        android:layout_height="32dp"
         android:src="@drawable/twotone_start_24"
         android:elevation="12dp"
         app:layout_constraintBottom_toTopOf="@id/start_text"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toTopOf="@+id/button"
-        android:contentDescription="@string/start_trip" />
+        android:contentDescription="@string/start_trip"
+        app:tint="?attr/colorOnTertiaryContainer" />
 
     <TextView
         android:id="@+id/start_text"
@@ -104,18 +105,18 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/semibold"
         android:text="@string/start_trip"
-        android:textColor="?attr/colorOnPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@id/start_icon"/>
 
-    <com.jri.emisigas.custom.CustomButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/tips"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:alpha="0.4"
+        android:layout_width="85dp"
+        android:layout_height="70dp"
+        android:backgroundTint="?attr/colorTertiaryContainer"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button"
@@ -123,15 +124,16 @@
 
     <ImageView
         android:id="@+id/tips_icon"
-        android:layout_width="32dp"
-        android:layout_height="36dp"
+        android:layout_width="28dp"
+        android:layout_height="32dp"
         android:src="@drawable/twotone_tips_and_updates_24"
         android:elevation="12dp"
         app:layout_constraintBottom_toTopOf="@id/tips_text"
         app:layout_constraintEnd_toEndOf="@+id/tips"
         app:layout_constraintStart_toStartOf="@+id/tips"
         app:layout_constraintTop_toTopOf="@+id/tips"
-        android:contentDescription="@string/tips" />
+        android:contentDescription="@string/tips"
+        app:tint="?attr/colorOnTertiaryContainer"/>
 
     <TextView
         android:id="@+id/tips_text"
@@ -139,11 +141,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/semibold"
         android:text="@string/tips"
-        android:textColor="?attr/colorOnPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/tips"
         app:layout_constraintEnd_toEndOf="@+id/tips"
-        app:layout_constraintStart_toStartOf="@+id/tips"/>
+        app:layout_constraintStart_toStartOf="@+id/tips"
+        app:layout_constraintTop_toBottomOf="@id/tips_icon"/>
 
     <com.jri.emisigas.custom.CustomButton
         android:id="@+id/avg_consumption"
@@ -164,7 +167,7 @@
         android:text="@string/avg_consumption"
         android:elevation="12dp"
         android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         app:layout_constraintStart_toStartOf="@+id/avg_consumption"
         app:layout_constraintTop_toTopOf="@id/avg_consumption" />
 
@@ -176,7 +179,7 @@
         android:elevation="12dp"
         android:fontFamily="@font/bold"
         android:text="@string/avg_consumption"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/avg_consumption"
         app:layout_constraintStart_toStartOf="@+id/avg_consumption"
@@ -188,7 +191,6 @@
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avg_consumption"
         app:layout_constraintTop_toBottomOf="@+id/view"/>
@@ -203,7 +205,7 @@
         android:text="@string/last_trip"
         android:elevation="12dp"
         android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         app:layout_constraintStart_toStartOf="@+id/last_trip"
         app:layout_constraintTop_toTopOf="@id/last_trip" />
 
@@ -217,7 +219,7 @@
         android:text="@string/distance"
         android:elevation="12dp"
         android:textSize="14sp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         app:layout_constraintStart_toStartOf="@+id/last_trip"
         app:layout_constraintTop_toBottomOf="@id/last_trip_text" />
 
@@ -230,7 +232,7 @@
         android:text="@string/distance"
         android:elevation="12dp"
         android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         app:layout_constraintStart_toStartOf="@+id/last_trip"
         app:layout_constraintTop_toBottomOf="@id/distance_text" />
 
@@ -244,7 +246,7 @@
         android:text="@string/consumption"
         android:elevation="12dp"
         android:textSize="14sp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         app:layout_constraintStart_toStartOf="@+id/last_trip"
         app:layout_constraintTop_toBottomOf="@id/distance" />
 
@@ -257,7 +259,7 @@
         android:text="@string/consumption"
         android:elevation="12dp"
         android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorOnTertiaryContainer"
         app:layout_constraintStart_toStartOf="@+id/last_trip"
         app:layout_constraintTop_toBottomOf="@id/consumption_text" />
 

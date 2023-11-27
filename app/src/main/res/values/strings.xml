@@ -35,4 +35,22 @@
     <string name="distance">Distance</string>
     <string name="consumption">Consumption</string>
     <string name="edit">Edit</string>
+    <string name="day">Day</string>
+    <string name="date">xx-xx-xxxx</string>
+    <string name="profile">Profile</string>
+    <string name="line">Line</string>
+    <string name="text_result">This is what you earn from your vehicle</string>
+    <string name="you_co_consumption_is">You CO consumption is</string>
+    <string name="your_mileage_is">Your mileage is</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="change_your_profile">Change Your Profile</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="your_vehicle_data">Your Vehicle Data</string>
+    <string name="enter_your_vehicle_brand">Enter Your Vehicle Brand</string>
+    <string name="vehicle_brand">Vehicle Brand</string>
+    <string name="license_plate">License Plate</string>
+    <string name="enter_your_license_plate">Enter Your License Plate</string>
+    <string name="machine_capacity">Machine Capacity</string>
+    <string name="enter_your_machine_capacity">Enter Your Machine Capacity</string>
 </resources>

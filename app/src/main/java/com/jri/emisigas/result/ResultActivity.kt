@@ -1,8 +1,9 @@
 package com.jri.emisigas.result
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import com.jri.emisigas.R
+import androidx.appcompat.app.AppCompatActivity
+import com.jri.emisigas.MainActivity
 import com.jri.emisigas.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
@@ -17,5 +18,10 @@ class ResultActivity : AppCompatActivity() {
 
         binding.totalEmission.text = "Total Emission: $totalEmission kg CO2"
         binding.totalDistance.text = "Total Distance: $totalDistance km"
+
+        binding.toHome.setOnClickListener {
+            val intent = Intent(this@ResultActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

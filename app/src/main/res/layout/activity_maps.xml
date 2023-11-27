@@ -17,12 +17,15 @@
         map:layout_constraintTop_toTopOf="parent"
         tools:context=".MapsActivity" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
+        android:padding="8dp"
+        android:background="?attr/colorPrimary"
         android:text="@string/start_trip"
+        android:textColor="?attr/colorOnPrimary"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent" />

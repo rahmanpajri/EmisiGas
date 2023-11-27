@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -13,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.jri.emisigas.auth.LoginActivity
 import com.jri.emisigas.databinding.FragmentProfileBinding
+import com.jri.emisigas.vehicle.ChangeVehicleActivity
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -26,6 +26,15 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        binding.profileButton.setOnClickListener {
+            val intent = Intent(requireContext(), ChangeProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.vehicle.setOnClickListener {
+            val intent = Intent(requireContext(), ChangeVehicleActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.logout.setOnClickListener {
           logout()

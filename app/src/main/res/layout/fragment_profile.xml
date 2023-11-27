@@ -5,38 +5,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
+    android:padding="16dp"
     tools:context=".profile.ProfileFragment" >
 
     <com.jri.emisigas.custom.CustomButton
-        android:id="@+id/customButton"
+        android:id="@+id/profileButton"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="?attr/colorTertiaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:elevation="12dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/enter_your_name"
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profileButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:elevation="12dp"
+        android:text="@string/enter_your_email"
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullName" />
+
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:elevation="12dp"
+        android:src="@drawable/twotone_arrow_forward_ios_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullName"
+        android:contentDescription="@string/profile" />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="36dp"
+        android:background="?attr/colorOnTertiaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileButton"
+        android:contentDescription="@string/line" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/vehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorPrimaryContainer"
-        android:textColor="?attr/colorOnPrimaryContainer"
-        android:layout_marginTop="40dp"
+        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:textColor="?attr/colorOnSecondaryContainer"
+        android:layout_marginTop="36dp"
         android:text="@string/vehicle"
+        android:fontFamily="@font/semibold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customButton" />
+        app:layout_constraintTop_toBottomOf="@+id/line" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorPrimaryContainer"
-        android:textColor="?attr/colorOnPrimaryContainer"
+        android:backgroundTint="?attr/colorSecondaryContainer"
+        android:textColor="?attr/colorOnSecondaryContainer"
         android:layout_marginTop="16dp"
         android:text="@string/logout"
+        android:fontFamily="@font/semibold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vehicle" />

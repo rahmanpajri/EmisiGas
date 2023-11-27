@@ -1,12 +1,10 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jri.emisigas.R
-import com.jri.emisigas.databinding.ItemHistoryBinding
 import com.jri.emisigas.history.History
 
 class HistoryAdapter : ListAdapter<History, HistoryAdapter.ViewHolder>(HistoryItemDiffCallback()) {
