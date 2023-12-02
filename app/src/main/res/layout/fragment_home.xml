@@ -56,6 +56,7 @@
         app:layout_constraintTop_toTopOf="@id/car_type" />
 
     <ImageView
+        android:id="@+id/edit_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
@@ -80,7 +81,7 @@
         android:id="@+id/button"
         android:layout_width="85dp"
         android:layout_height="70dp"
-        android:backgroundTint="?attr/colorTertiaryContainer"
+        android:background="@drawable/bg_home_start_trip"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@id/tips"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +98,7 @@
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintTop_toTopOf="@+id/button"
         android:contentDescription="@string/start_trip"
-        app:tint="?attr/colorOnTertiaryContainer" />
+        app:tint="?attr/colorTertiaryContainer" />
 
     <TextView
         android:id="@+id/start_text"
@@ -105,7 +106,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/semibold"
         android:text="@string/start_trip"
-        android:textColor="?attr/colorOnTertiaryContainer"
+        android:textColor="?attr/colorOnPrimary"
         android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/button"
@@ -116,7 +117,7 @@
         android:id="@+id/tips"
         android:layout_width="85dp"
         android:layout_height="70dp"
-        android:backgroundTint="?attr/colorTertiaryContainer"
+        android:background="@drawable/bg_home_start_trip"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/button"
@@ -133,7 +134,7 @@
         app:layout_constraintStart_toStartOf="@+id/tips"
         app:layout_constraintTop_toTopOf="@+id/tips"
         android:contentDescription="@string/tips"
-        app:tint="?attr/colorOnTertiaryContainer"/>
+        app:tint="?attr/colorTertiaryContainer"/>
 
     <TextView
         android:id="@+id/tips_text"
@@ -141,7 +142,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/semibold"
         android:text="@string/tips"
-        android:textColor="?attr/colorOnTertiaryContainer"
+        android:textColor="?attr/colorOnPrimary"
         android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/tips"
         app:layout_constraintEnd_toEndOf="@+id/tips"
