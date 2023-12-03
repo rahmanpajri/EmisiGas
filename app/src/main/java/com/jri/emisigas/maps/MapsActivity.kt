@@ -27,9 +27,17 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.jri.emisigas.R
 import com.jri.emisigas.databinding.ActivityMapsBinding
+import com.jri.emisigas.result.Result
 import com.jri.emisigas.result.ResultActivity
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -38,6 +46,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapsBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
+    private lateinit var auth: FirebaseAuth
     private var isTracking = false
     private lateinit var locationCallback: LocationCallback
     private var allLatLng = ArrayList<LatLng>()
@@ -56,11 +65,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var totalMovingEmission = 0.0
     private var totalIdleEmission = 0.0
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -87,14 +100,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val totalEmission = totalIdleEmission + totalMovingEmission
                 val totalDistance = totalIdleDistance + totalDistance
                 Log.d(TAG, "Total Emission: $totalEmission kg CO2")
+                val formattedTotalEmission = String.format("%.5f", totalEmission)
+                val formattedTotalDistance = String.format("%.5f", totalDistance)
 
-                // Kirim totalEmission ke ResultActivity
+                addResult()
+
                 val intent = Intent(this@MapsActivity, ResultActivity::class.java)
-                intent.putExtra("TOTAL_EMISSION", totalEmission)
-                intent.putExtra("TOTAL_DISTANCE", totalDistance)
+                intent.putExtra("TOTAL_EMISSION", formattedTotalEmission)
+                intent.putExtra("TOTAL_DISTANCE", formattedTotalDistance)
                 startActivity(intent)
 
-                // Selesaikan MapsActivity
                 finish()
             }
         }
@@ -105,6 +120,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isMapToolbarEnabled = true
 
         getMyLocation()
+    }
+
+    private fun addResult(){
+        val uid = auth.currentUser!!.uid
+        val jenisId = intent.getStringExtra("jenis_id") ?: ""
+        val tahunId = intent.getStringExtra("tahun_id") ?: ""
+        val formattedTotalEmission = String.format("%.5f", totalIdleEmission + totalMovingEmission)
+        val formattedTotalDistance = String.format("%.5f", totalIdleDistance + totalDistance)
+        val date = SimpleDateFormat("EEEE, dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Date())
+
+        val result = Result(date, formattedTotalDistance, jenisId, formattedTotalEmission, tahunId, uid)
+
+        val database = FirebaseDatabase.getInstance().reference.child("result").push()
+
+        database.setValue(result)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Result added successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to add Result", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private val requestPermissionLauncher =
@@ -231,13 +267,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     if (allLatLng.size >= 2) {
                         val distance = calculateDistance(allLatLng[allLatLng.size - 2], lastLatLng)
                         totalDistance += distance
-                        Log.d(TAG, "onLocationResult: Distance - $distance, Total Distance - $totalDistance km")
+
+                        val fuelEfficiency = getFullEfficiency()
+                        Log.d(TAG, "fuelEfficiency: $fuelEfficiency")
 
                         val movingEmission = distance * fuelEfficiency * fuelConsumption
                         totalMovingEmission += movingEmission
                         Log.d(TAG, "Moving Emission: $movingEmission kg CO2")
 
-                        // Hitung waktu idle dan emisi saat idle
                         val idleTimeInSeconds = calculateIdleTime(location)
                         totalIdleTime += idleTimeInSeconds
                         val idleDistance = calculateIdleDistance(idleTimeInSeconds)
@@ -248,7 +285,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         // Hitung total emisi
                         val totalEmission = totalMovingEmission + totalIdleEmission
-                        Log.d(TAG, "Total Emission: $totalEmission kg CO2")
+                        val formattedTotalEmission = String.format("%.5f", totalEmission)
                     }
 
                     boundsBuilder.include(lastLatLng)
@@ -259,8 +296,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    private fun getFullEfficiency(): Double{
+        val jenisId = intent.getStringExtra("jenis_id")
+        val tahunId = intent.getStringExtra("tahun_id")
+
+        return when {
+            jenisId == "4" && tahunId == "1" -> 74800.0
+            jenisId == "4" && tahunId == "2" -> 74100.0
+            jenisId == "4" && tahunId == "3" -> 72600.0
+            jenisId != "4" && tahunId == "1" -> 73000.0
+            jenisId != "4" && tahunId == "2" -> 69300.0
+            jenisId != "4" && tahunId == "3" -> 67500.0
+            else -> 0.0
+        }
+    }
+
     private fun calculateIdleTime(location: Location): Long {
-        val isCurrentlyIdle = isIdle(location)
+        val isCurrentlyIdle = location.speed < IDLE_SPEED_THRESHOLD
 
         if (isCurrentlyIdle && !isIdleStarted) {
             // Jika kendaraan baru saja menjadi idle, catat waktu mulai idle
@@ -282,12 +334,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             0
         }
-    }
-
-    private fun isIdle(location: Location): Boolean {
-        // Implementasi sesuai dengan kebutuhan aplikasi Anda
-        // Misalnya, jika kecepatan kendaraan kurang dari batas tertentu
-        return location.speed < IDLE_SPEED_THRESHOLD
     }
 
     private fun calculateIdleDistance(idleTimeInSeconds: Long): Double {
@@ -341,7 +387,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object {
         private const val TAG = "MapsActivity"
-        private const val fuelEfficiency = 69300.0 // kg/TJ
         private const val fuelConsumption = 4.95e-6 // TJ/km
         private const val fuelConsumptionIdle = 5.0e-6
     }

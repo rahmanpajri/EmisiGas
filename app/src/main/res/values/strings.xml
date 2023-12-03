@@ -40,7 +40,7 @@
     <string name="profile">Profile</string>
     <string name="line">Line</string>
     <string name="text_result">This is what you earn from your vehicle</string>
-    <string name="you_co_consumption_is">You CO consumption is</string>
+    <string name="you_co_consumption_is">Your CO2 consumption is</string>
     <string name="your_mileage_is">Your mileage is</string>
     <string name="back_to_home">Back to Home</string>
     <string name="change_your_profile">Change Your Profile</string>
@@ -55,7 +55,9 @@
     <string name="enter_your_machine_capacity">Enter Your Machine Capacity</string>
     <string name="name_tips">Nama Tips</string>
     <string name="description">Deskripsi</string>
-    <string name="name">Name</string>
+    <string name="name">Full Name</string>
+    <string name="jenis_bahan_bakar">Jenis Bahan Bakar Kendaraan</string>
+    <string name="tahun_pembuatan">Tahun Pembuatan Kendaraan</string>
 
     <string-array name="data_name">
         <item>Sampah Organik</item>

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jri.emisigas.databinding.ItemRowTipsBinding
 
-class ListTipsAdapter(private val listTrash: ArrayList<Tips>): RecyclerView.Adapter<ListTipsAdapter.ListViewHolder>() {
+class ListTipsAdapter(private val listTips: ArrayList<Tips>): RecyclerView.Adapter<ListTipsAdapter.ListViewHolder>() {
 
     class ListViewHolder(var binding: ItemRowTipsBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -17,17 +17,17 @@ class ListTipsAdapter(private val listTrash: ArrayList<Tips>): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (title, id, description) = listTrash[position]
+        val (title, id, description) = listTips[position]
         holder.binding.tipsName.text = title
         holder.binding.tipsDescription.text = description
         holder.itemView.setOnClickListener{
             val intentDetail = Intent(holder.itemView.context, DetailTipsActivity::class.java)
-            intentDetail.putExtra("key_tips", listTrash[holder.adapterPosition])
+            intentDetail.putExtra("key_tips", listTips[holder.adapterPosition])
             holder.itemView.context.startActivity(intentDetail)
         }
 
     }
 
-    override fun getItemCount(): Int = listTrash.size
+    override fun getItemCount(): Int = listTips.size
 
 }

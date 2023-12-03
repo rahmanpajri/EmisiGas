@@ -41,8 +41,6 @@ class TipsActivity : AppCompatActivity() {
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         dbref = database.reference.child("tips")
 
-        Log.d("Database nya", dbref.database.toString())
-
         dbref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){

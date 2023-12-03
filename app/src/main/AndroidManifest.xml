@@ -17,6 +17,9 @@
         android:theme="@style/Theme.EmisiGas"
         tools:targetApi="31">
         <activity
+            android:name=".tahun.TahunPembuatanActivity"
+            android:exported="false" />
+        <activity
             android:name=".tips.DetailTipsActivity"
             android:exported="false" />
         <activity
@@ -47,7 +50,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD98l8hw8bPbAkT_6d10gPECvp_CFoorww" />
+            android:value="AIzaSyCNMhorwYFhgVnpGRzT5A1jiFrvZUN1tw8" />
 
         <activity
             android:name=".maps.MapsActivity"
