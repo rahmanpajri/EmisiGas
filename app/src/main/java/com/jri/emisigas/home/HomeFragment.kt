@@ -32,19 +32,19 @@ import java.util.Locale
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private lateinit var homeViewModel: HomeViewModel
     private lateinit var auth: FirebaseAuth
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-      val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
       _binding = FragmentHomeBinding.inflate(inflater, container, false)
       val view = binding.root
+
+      auth = FirebaseAuth.getInstance()
 
       binding.button.setOnClickListener {
           val intent = Intent(requireContext(), JenisBbActivity::class.java)
@@ -63,21 +63,17 @@ class HomeFragment : Fragment() {
 
       showProfile()
 
-      homeViewModel.text.observe(viewLifecycleOwner) {
-
-      }
-    return view
+      return view
   }
 
     private fun showProfile(){
-        auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         val db = FirebaseDatabase.getInstance()
 
         if(user != null){
             val userRef = db.reference.child("users").child(user.uid)
 
-            userRef.addValueEventListener(object : ValueEventListener{
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){
                         binding.name.text = snapshot.child("fullName").getValue(String::class.java)
@@ -90,7 +86,6 @@ class HomeFragment : Fragment() {
 
             })
 
-            val userId = FirebaseAuth.getInstance().currentUser?.uid
             val resultRef = db.reference.child("result")
             resultRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -105,7 +100,7 @@ class HomeFragment : Fragment() {
                         for (data in snapshot.children) {
                             val result = data.getValue(Result::class.java)
                             if (result != null) {
-                                if (result.user_id == userId) {
+                                if (result.user_id == user.uid) {
                                     val dateTime = formatter.parse(result.date)
 
                                     if (latestDateTime == null || dateTime.after(latestDateTime)) {
@@ -120,10 +115,14 @@ class HomeFragment : Fragment() {
 
                         }
 
-                        latestData?.let {
-                            binding.distance.text = it.distance + " km"
-                            binding.consumption.text = it.result + " kg CO2"
+                        if (latestData != null) {
+                            binding.distance.text = latestData.distance + " km"
+                            binding.consumption.text = latestData.result + " kg CO2"
+                        } else {
+                            binding.distance.text = "0 km"
+                            binding.consumption.text = "0 kg CO2"
                         }
+
                         val averageResult = if (dataCount > 0) totalResult / dataCount else 0.0
                         val decimalFormat = DecimalFormat("#.####")
                         decimalFormat.roundingMode = RoundingMode.DOWN
@@ -138,19 +137,27 @@ class HomeFragment : Fragment() {
             })
 
             val vehicleRef = db.reference.child("vehicle")
-            vehicleRef.addValueEventListener(object : ValueEventListener{
+            vehicleRef.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        for (data in snapshot.children) {
-                            val vehicle = data.getValue(Vehicle::class.java)
-                            if (vehicle != null) {
-                                if (vehicle.user_id == userId) {
-                                    binding.carType.text = vehicle.brand
-                                    binding.capacity.text = vehicle.capacity
-                                    binding.plate.text = vehicle.plate
-                                }
+                    var isUserVehicleExist = false // Flag untuk menandai apakah data user_vehicle ada
+                    for (data in snapshot.children) {
+                        val vehicle = data.getValue(Vehicle::class.java)
+                        if (vehicle != null) {
+                            if (vehicle.user_id == user.uid) {
+                                isUserVehicleExist = true
+                                binding.carType.text = vehicle.brand
+                                binding.capacity.text = vehicle.capacity
+                                binding.plate.text = vehicle.plate
+                                break // Keluar dari loop karena sudah ditemukan data yang cocok
                             }
                         }
+                    }
+
+                    // Jika tidak ada data yang cocok, set teks menjadi 'Set Car Type', 'Set Capacity', 'Set Plate'
+                    if (!isUserVehicleExist) {
+                        binding.carType.text = "Set Car Type"
+                        binding.capacity.text = "Set Capacity"
+                        binding.plate.text = "Set Plate"
                     }
                 }
 

@@ -75,7 +75,7 @@ class ChangeProfileActivity : AppCompatActivity() {
             userRef.child("fullName").setValue(newFullName)
                 .addOnSuccessListener {
                     if (newPassword.isNotEmpty()) {
-                        user.updatePassword(newPassword)
+                        currentUser.updatePassword(newPassword)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
@@ -87,7 +87,7 @@ class ChangeProfileActivity : AppCompatActivity() {
                                 }
                             }
                     } else {
-                        Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener {

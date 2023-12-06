@@ -122,7 +122,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="?attr/colorPrimary"
-        android:text="@string/change_your_profile"
+        android:text="@string/change_your_vehicle_data"
         android:textColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

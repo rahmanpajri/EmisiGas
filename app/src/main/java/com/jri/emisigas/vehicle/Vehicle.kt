@@ -9,4 +9,13 @@ data class Vehicle(
     val capacity: String = "",
     val plate: String = "",
     val user_id: String = ""
-): Parcelable
+): Parcelable {
+    fun toMap(): Map<String, Any> {
+        val result: HashMap<String, Any> = HashMap()
+        result["brand"] = brand
+        result["capacity"] = capacity
+        result["plate"] = plate
+        result["user_id"] = user_id
+        return result
+    }
+}

@@ -58,6 +58,7 @@
     <string name="name">Full Name</string>
     <string name="jenis_bahan_bakar">Jenis Bahan Bakar Kendaraan</string>
     <string name="tahun_pembuatan">Tahun Pembuatan Kendaraan</string>
+    <string name="change_your_vehicle_data">Change Your Vehicle Data</string>
 
     <string-array name="data_name">
         <item>Sampah Organik</item>

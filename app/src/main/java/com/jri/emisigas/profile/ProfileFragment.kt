@@ -21,15 +21,14 @@ import com.jri.emisigas.vehicle.ChangeVehicleActivity
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+    private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val profileViewModel =
-            ViewModelProvider(this)[ProfileViewModel::class.java]
-
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val view= binding.root
+
+        auth = FirebaseAuth.getInstance()
 
         binding.profileButton.setOnClickListener {
             val intent = Intent(requireContext(), ChangeProfileActivity::class.java)
@@ -47,11 +46,10 @@ class ProfileFragment : Fragment() {
           logout()
         }
 
-        return root
+        return view
   }
 
     private fun showProfile(){
-        auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         val db = FirebaseDatabase.getInstance()
 

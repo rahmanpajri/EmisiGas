@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -22,6 +23,7 @@ class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
     private lateinit var rvHistory: RecyclerView
     private lateinit var dbRef: DatabaseReference
+    private lateinit var auth: FirebaseAuth
     private val list = ArrayList<Result>()
     private val binding get() = _binding!!
 
@@ -45,7 +47,10 @@ class HistoryFragment : Fragment() {
     }
 
     private fun getHistory() {
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+
         dbRef = database.reference.child("result")
 
         dbRef.addValueEventListener(object : ValueEventListener {
@@ -53,8 +58,11 @@ class HistoryFragment : Fragment() {
                 if(snapshot.exists()){
                     for (resultSnapshot in snapshot.children){
                         val result = resultSnapshot.getValue(Result::class.java)
-
-                        list.add(result!!)
+                        if (result != null) {
+                            if (result.user_id == user?.uid) {
+                                list.add(result!!)
+                            }
+                        }
                     }
                     rvHistory.adapter = HistoryAdapter(list)
                 }else{
