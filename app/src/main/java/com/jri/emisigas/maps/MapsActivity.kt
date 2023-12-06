@@ -126,8 +126,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val uid = auth.currentUser!!.uid
         val jenisId = intent.getStringExtra("jenis_id") ?: ""
         val tahunId = intent.getStringExtra("tahun_id") ?: ""
-        val formattedTotalEmission = String.format("%.5f", totalIdleEmission + totalMovingEmission)
-        val formattedTotalDistance = String.format("%.5f", totalIdleDistance + totalDistance)
+        val formattedTotalEmission = String.format("%.4f", totalIdleEmission + totalMovingEmission)
+        val formattedTotalDistance = String.format("%.4f", totalIdleDistance + totalDistance)
         val date = SimpleDateFormat("EEEE, dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Date())
 
         val result = Result(date, formattedTotalDistance, jenisId, formattedTotalEmission, tahunId, uid)
@@ -285,7 +285,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         // Hitung total emisi
                         val totalEmission = totalMovingEmission + totalIdleEmission
-                        val formattedTotalEmission = String.format("%.5f", totalEmission)
+                        val formattedTotalEmission = String.format("%.4f", totalEmission)
                     }
 
                     boundsBuilder.include(lastLatLng)

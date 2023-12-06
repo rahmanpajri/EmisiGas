@@ -31,8 +31,8 @@ class HistoryAdapter(private val listHistory: ArrayList<Result>): RecyclerView.A
 
         holder.day.text = dayFormat.format(date)
         holder.date.text = dateFormat.format(date)
-        holder.consumption.text = currentItem.result
-        holder.distance.text = currentItem.distance
+        holder.consumption.text = currentItem.result + " kg CO2"
+        holder.distance.text = currentItem.distance + " km"
         holder.itemView.setOnClickListener {
             Toast.makeText(holder.itemView.context, "Your CO2 Consumption is ${currentItem.result}", Toast.LENGTH_SHORT).show()
         }
