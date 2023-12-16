@@ -8,6 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.jri.emisigas.auth.LoginActivity
+import com.jri.emisigas.onBoarding.OnBoardingActivity
 
 @SuppressLint("CustomSplashScreen")
 @Suppress("DEPRECATION")
@@ -20,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
         val splashTime: Long = 3000
 
         Handler().postDelayed({
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, OnBoardingActivity::class.java)
             startActivity(intent)
             finish()
         }, splashTime)
