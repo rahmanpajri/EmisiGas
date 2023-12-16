@@ -59,6 +59,7 @@
     <string name="jenis_bahan_bakar">Jenis Bahan Bakar Kendaraan</string>
     <string name="tahun_pembuatan">Tahun Pembuatan Kendaraan</string>
     <string name="change_your_vehicle_data">Change Your Vehicle Data</string>
+    <string name="tips_desc">Follow the tips given here to help reduce vehicle exhaust emissions</string>
 
     <string-array name="data_name">
         <item>Sampah Organik</item>

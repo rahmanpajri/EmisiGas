@@ -72,18 +72,15 @@ class HomeFragment : Fragment() {
 
         if(user != null){
             val userRef = db.reference.child("users").child(user.uid)
-
             userRef.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){
                         binding.name.text = snapshot.child("fullName").getValue(String::class.java)
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
                 }
-
             })
 
             val resultRef = db.reference.child("result")
@@ -91,7 +88,6 @@ class HomeFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val formatter = SimpleDateFormat("EEEE, dd-MM-yyyy HH:mm:ss", Locale.getDefault())
-
                         var latestData: Result? = null
                         var latestDateTime: Date? = null
                         var totalResult = 0.0
@@ -102,19 +98,15 @@ class HomeFragment : Fragment() {
                             if (result != null) {
                                 if (result.user_id == user.uid) {
                                     val dateTime = formatter.parse(result.date)
-
                                     if (latestDateTime == null || dateTime.after(latestDateTime)) {
                                         latestDateTime = dateTime
                                         latestData = result
                                     }
                                     totalResult += result.result.toDouble()
-                                    // Menambah jumlah data
                                     dataCount++
                                 }
                             }
-
                         }
-
                         if (latestData != null) {
                             binding.distance.text = latestData.distance + " km"
                             binding.consumption.text = latestData.result + " kg CO2"
@@ -130,7 +122,6 @@ class HomeFragment : Fragment() {
                         binding.avgCount.text = "$formattedResult kg CO2"
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
                 }
@@ -139,7 +130,7 @@ class HomeFragment : Fragment() {
             val vehicleRef = db.reference.child("vehicle")
             vehicleRef.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    var isUserVehicleExist = false // Flag untuk menandai apakah data user_vehicle ada
+                    var isUserVehicleExist = false
                     for (data in snapshot.children) {
                         val vehicle = data.getValue(Vehicle::class.java)
                         if (vehicle != null) {
@@ -148,19 +139,16 @@ class HomeFragment : Fragment() {
                                 binding.carType.text = vehicle.brand
                                 binding.capacity.text = vehicle.capacity
                                 binding.plate.text = vehicle.plate
-                                break // Keluar dari loop karena sudah ditemukan data yang cocok
+                                break
                             }
                         }
                     }
-
-                    // Jika tidak ada data yang cocok, set teks menjadi 'Set Car Type', 'Set Capacity', 'Set Plate'
                     if (!isUserVehicleExist) {
                         binding.carType.text = "Set Car Type"
                         binding.capacity.text = "Set Capacity"
                         binding.plate.text = "Set Plate"
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
                 }
