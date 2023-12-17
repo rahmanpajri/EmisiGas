@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EmisiGas</string>
+    <string name="app_name">CarbonTrack</string>
     <string name="logo">Logo</string>
     <string name="title_activity_maps">MapsActivity</string>
 
