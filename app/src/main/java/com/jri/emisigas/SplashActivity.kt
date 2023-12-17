@@ -7,7 +7,6 @@ import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.jri.emisigas.auth.LoginActivity
 import com.jri.emisigas.onBoarding.OnBoardingActivity
 
 @SuppressLint("CustomSplashScreen")

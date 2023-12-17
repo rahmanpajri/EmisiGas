@@ -1,16 +1,17 @@
+@file:Suppress("DEPRECATION")
+
 package com.jri.emisigas.onBoarding
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.jri.emisigas.MainActivity
 import com.jri.emisigas.R
 import com.jri.emisigas.auth.LoginActivity
 import com.jri.emisigas.databinding.ActivityOnBoardingBinding

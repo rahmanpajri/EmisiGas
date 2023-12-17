@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jri.emisigas.databinding.ItemButtonBinding
-import com.jri.emisigas.jenis.JenisBB
-import com.jri.emisigas.jenis.ListJenisBBAdapter
 import com.jri.emisigas.maps.MapsActivity
 
 class ListTahunPembuatanAdapter(private val listTahun: ArrayList<TahunPembuatan>, private val selectedJenisBB: String?): RecyclerView.Adapter<ListTahunPembuatanAdapter.ListViewHolder>() {
@@ -20,7 +18,7 @@ class ListTahunPembuatanAdapter(private val listTahun: ArrayList<TahunPembuatan>
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (id, name) = listTahun[position]
+        val (_, name) = listTahun[position]
         val selectedTahunPembuatan = listTahun[position]
         holder.binding.nameButton.text = name
         holder.itemView.setOnClickListener{

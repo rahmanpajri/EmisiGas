@@ -3,6 +3,7 @@ package com.jri.emisigas.onBoarding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jri.emisigas.databinding.SliderItemBinding
 
 class SliderAdapter(private val slider: List<Slider>) : RecyclerView.Adapter<SliderAdapter.SliderViewHolder>() {
@@ -16,7 +17,9 @@ class SliderAdapter(private val slider: List<Slider>) : RecyclerView.Adapter<Sli
         fun bind(slider: Slider) {
             textTitle.text = slider.title
             textDescription.text = slider.descriptor
-            image.setImageResource(slider.image)
+            Glide.with(itemView)
+                .load(slider.image)
+                .into(image)
         }
     }
 

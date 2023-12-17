@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -30,6 +29,8 @@ class ProfileFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+        showProfile()
+
         binding.profileButton.setOnClickListener {
             val intent = Intent(requireContext(), ChangeProfileActivity::class.java)
             startActivity(intent)
@@ -39,8 +40,6 @@ class ProfileFragment : Fragment() {
             val intent = Intent(requireContext(), ChangeVehicleActivity::class.java)
             startActivity(intent)
         }
-
-        showProfile()
 
         binding.logout.setOnClickListener {
           logout()
@@ -56,7 +55,7 @@ class ProfileFragment : Fragment() {
         if(user != null){
             val userRef = db.reference.child("users").child(user.uid)
 
-            userRef.addValueEventListener(object : ValueEventListener {
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){
                         binding.fullName.text = snapshot.child("fullName").getValue(String::class.java)

@@ -1,15 +1,13 @@
 package com.jri.emisigas.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,8 +22,6 @@ import com.jri.emisigas.vehicle.Vehicle
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
@@ -84,7 +80,8 @@ class HomeFragment : Fragment() {
             })
 
             val resultRef = db.reference.child("result")
-            resultRef.addValueEventListener(object : ValueEventListener {
+            resultRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                @SuppressLint("SetTextI18n")
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val formatter = SimpleDateFormat("EEEE, dd-MM-yyyy HH:mm:ss", Locale.getDefault())
@@ -98,9 +95,11 @@ class HomeFragment : Fragment() {
                             if (result != null) {
                                 if (result.user_id == user.uid) {
                                     val dateTime = formatter.parse(result.date)
-                                    if (latestDateTime == null || dateTime.after(latestDateTime)) {
-                                        latestDateTime = dateTime
-                                        latestData = result
+                                    if (dateTime != null) {
+                                        if (latestDateTime == null || dateTime.after(latestDateTime)) {
+                                            latestDateTime = dateTime
+                                            latestData = result
+                                        }
                                     }
                                     totalResult += result.result.toDouble()
                                     dataCount++
@@ -129,6 +128,7 @@ class HomeFragment : Fragment() {
 
             val vehicleRef = db.reference.child("vehicle")
             vehicleRef.addListenerForSingleValueEvent(object : ValueEventListener{
+                @SuppressLint("SetTextI18n")
                 override fun onDataChange(snapshot: DataSnapshot) {
                     var isUserVehicleExist = false
                     for (data in snapshot.children) {

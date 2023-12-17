@@ -83,7 +83,7 @@ class ChangeProfileActivity : AppCompatActivity() {
                                     startActivity(intent)
                                     finish()
                                 } else {
-                                    Toast.makeText(this, "Failed to update password", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
                                 }
                             }
                     } else {

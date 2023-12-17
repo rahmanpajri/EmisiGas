@@ -1,8 +1,8 @@
 package com.jri.emisigas.tahun
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -10,10 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.jri.emisigas.R
 import com.jri.emisigas.databinding.ActivityTahunPembuatanBinding
-import com.jri.emisigas.jenis.JenisBB
-import com.jri.emisigas.jenis.ListJenisBBAdapter
 
 class TahunPembuatanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTahunPembuatanBinding

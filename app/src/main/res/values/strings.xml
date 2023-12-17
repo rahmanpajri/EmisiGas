@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">EmisiGas</string>
     <string name="logo">Logo</string>
     <string name="title_activity_maps">MapsActivity</string>
@@ -30,7 +30,7 @@
     <string name="car_type">Car Type</string>
     <string name="capacity">xxxx cc</string>
     <string name="license">License</string>
-    <string name="avg_consumption">Avg Consumption</string>
+    <string name="avg_consumption">Average Consumption</string>
     <string name="last_trip">Last Trip</string>
     <string name="distance">Distance</string>
     <string name="consumption">Consumption</string>

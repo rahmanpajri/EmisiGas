@@ -1,8 +1,6 @@
 package com.jri.emisigas.jenis
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,9 +11,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.jri.emisigas.databinding.ActivityJenisBbBinding
-import com.jri.emisigas.maps.MapsActivity
-import com.jri.emisigas.tips.ListTipsAdapter
-import com.jri.emisigas.tips.Tips
 
 class JenisBbActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJenisBbBinding

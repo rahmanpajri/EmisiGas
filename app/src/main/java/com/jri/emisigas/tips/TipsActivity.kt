@@ -1,7 +1,6 @@
 package com.jri.emisigas.tips
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +13,7 @@ import com.google.firebase.database.ValueEventListener
 import com.jri.emisigas.R
 import com.jri.emisigas.databinding.ActivityTipsBinding
 
+@Suppress("DEPRECATION")
 class TipsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTipsBinding
     private lateinit var dbref: DatabaseReference

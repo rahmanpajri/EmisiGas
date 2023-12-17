@@ -11,10 +11,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.jri.emisigas.MainActivity
 import com.jri.emisigas.databinding.ActivityChangeVehicleBinding
-import com.jri.emisigas.result.Result
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class ChangeVehicleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeVehicleBinding
