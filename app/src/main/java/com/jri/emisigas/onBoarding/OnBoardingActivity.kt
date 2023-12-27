@@ -30,7 +30,6 @@ class OnBoardingActivity : AppCompatActivity() {
         val isFirstRun = sharedPreferences.getBoolean("isFirstRun", true)
 
         if (isFirstRun) {
-
             val editor = sharedPreferences.edit()
             editor.putBoolean("isFirstRun", false)
             editor.apply()
@@ -57,7 +56,6 @@ class OnBoardingActivity : AppCompatActivity() {
                     )
                 )
             )
-
             supportActionBar?.hide()
             binding.slider.adapter = sliderAdapter
             getIndicator()
@@ -68,7 +66,6 @@ class OnBoardingActivity : AppCompatActivity() {
                     currentIndicator(position)
                 }
             })
-
             binding.nextButton.setOnClickListener{
                 if(binding.slider.currentItem +1 < sliderAdapter.itemCount){
                     binding.slider.currentItem += 1
@@ -87,7 +84,6 @@ class OnBoardingActivity : AppCompatActivity() {
             }
 
         } else {
-
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()

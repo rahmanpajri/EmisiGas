@@ -66,11 +66,9 @@ class ChangeVehicleActivity : AppCompatActivity() {
         val brand = binding.brandEditText.text.toString()
         val plate = binding.plateEditText.text.toString()
         val capacity = binding.machineEditText.text.toString()
-
         val result = Vehicle(brand, capacity, plate, uid)
 
         val database = FirebaseDatabase.getInstance().reference.child("vehicle")
-
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var userVehicleExists = false

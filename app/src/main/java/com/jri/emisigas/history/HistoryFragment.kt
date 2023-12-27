@@ -52,7 +52,6 @@ class HistoryFragment : Fragment() {
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
         dbRef = database.reference.child("result")
-
         dbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -69,7 +68,6 @@ class HistoryFragment : Fragment() {
                     Toast.makeText(requireContext(), "Data is Null", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
             }

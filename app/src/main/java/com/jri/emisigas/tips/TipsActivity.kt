@@ -40,13 +40,11 @@ class TipsActivity : AppCompatActivity() {
     private fun getListTips() {
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         dbref = database.reference.child("tips")
-
         dbref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     for (tipsSnapshot in snapshot.children){
                         val tips = tipsSnapshot.getValue(Tips::class.java)
-
                         list.add(tips!!)
                     }
                     rvTips.adapter = ListTipsAdapter(list)
@@ -54,11 +52,9 @@ class TipsActivity : AppCompatActivity() {
                     Toast.makeText(this@TipsActivity, "Data is Null", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@TipsActivity, "Database Error", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 

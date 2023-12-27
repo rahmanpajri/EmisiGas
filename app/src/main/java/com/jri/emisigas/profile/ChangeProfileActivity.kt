@@ -66,12 +66,9 @@ class ChangeProfileActivity : AppCompatActivity() {
 
     private fun updateProfile(newFullName: String, newPassword: String) {
         val currentUser: FirebaseUser? = FirebaseAuth.getInstance().currentUser
-
         currentUser?.let { user ->
             val db: FirebaseDatabase = FirebaseDatabase.getInstance()
             val userRef: DatabaseReference = db.reference.child("users").child(user.uid)
-
-            // Update fullName pada Realtime Database
             userRef.child("fullName").setValue(newFullName)
                 .addOnSuccessListener {
                     if (newPassword.isNotEmpty()) {
@@ -91,7 +88,6 @@ class ChangeProfileActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener {
-                    // Gagal update fullName
                     Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
                 }
         }
