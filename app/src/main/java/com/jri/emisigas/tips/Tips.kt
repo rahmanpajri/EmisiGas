@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class Tips(
     val title: String = "",
     val id: String = "",
+    val image: String ="",
     val description: String = ""
 ): Parcelable

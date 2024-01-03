@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jri.emisigas.databinding.ItemRowTipsBinding
 
 class ListTipsAdapter(private val listTips: ArrayList<Tips>): RecyclerView.Adapter<ListTipsAdapter.ListViewHolder>() {
@@ -17,7 +18,8 @@ class ListTipsAdapter(private val listTips: ArrayList<Tips>): RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (title, id, description) = listTips[position]
+        val (title, id, image, description) = listTips[position]
+        Glide.with(holder.itemView.context).load(image).into(holder.binding.TipsImage)
         holder.binding.tipsName.text = title
         holder.binding.tipsDescription.text = description
         holder.itemView.setOnClickListener{

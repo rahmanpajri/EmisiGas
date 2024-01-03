@@ -25,7 +25,6 @@
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:alpha="0.8"
-        android:onClick="selectStartDate"
         android:background="?attr/colorTertiaryContainer"
         app:layout_constraintTop_toBottomOf="@id/startDate"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -74,7 +73,6 @@
         android:layout_height="45dp"
         android:alpha="0.8"
         android:background="?attr/colorTertiaryContainer"
-        android:onClick="selectEndDate"
         app:layout_constraintTop_toBottomOf="@id/endDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/startDateButton"/>
