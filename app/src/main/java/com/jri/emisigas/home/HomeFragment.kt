@@ -13,6 +13,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.jri.emisigas.AvgActivity
 import com.jri.emisigas.databinding.FragmentHomeBinding
 import com.jri.emisigas.jenis.JenisBbActivity
 import com.jri.emisigas.result.Result
@@ -57,6 +58,11 @@ class HomeFragment : Fragment() {
           startActivity(intent)
       }
 
+      binding.avgConsumption.setOnClickListener {
+          val intent = Intent(requireContext(), AvgActivity::class.java)
+          startActivity(intent)
+      }
+
       showProfile()
 
       return view
@@ -88,6 +94,7 @@ class HomeFragment : Fragment() {
                         var latestData: Result? = null
                         var latestDateTime: Date? = null
                         var totalResult = 0.0
+                        var totalDistance = 0.0
                         var dataCount = 0
 
                         for (data in snapshot.children) {
@@ -102,6 +109,7 @@ class HomeFragment : Fragment() {
                                         }
                                     }
                                     totalResult += result.result.toDouble()
+                                    totalDistance += result.distance.toDouble()
                                     dataCount++
                                 }
                             }
@@ -110,15 +118,19 @@ class HomeFragment : Fragment() {
                             binding.distance.text = latestData.distance + " km"
                             binding.consumption.text = latestData.result + " kg CO2"
                         } else {
-                            binding.distance.text = "0 km"
-                            binding.consumption.text = "0 kg CO2"
+                            binding.distance.text = "0.0 km"
+                            binding.consumption.text = "0.0 kg CO2"
                         }
 
                         val averageResult = if (dataCount > 0) totalResult / dataCount else 0.0
+                        val averageDistance = if (dataCount > 0) totalDistance / dataCount else 0.0
                         val decimalFormat = DecimalFormat("#.####")
                         decimalFormat.roundingMode = RoundingMode.DOWN
                         val formattedResult = decimalFormat.format(averageResult)
+                        val formattedDistance = decimalFormat.format(averageDistance)
                         binding.avgCount.text = "$formattedResult kg CO2"
+                        binding.avgDistance.text = "$formattedDistance km"
+
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {

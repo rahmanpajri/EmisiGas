@@ -17,6 +17,9 @@
         android:theme="@style/Theme.EmisiGas"
         tools:targetApi="31">
         <activity
+            android:name=".AvgActivity"
+            android:exported="false" />
+        <activity
             android:name=".onBoarding.OnBoardingActivity"
             android:exported="false" />
         <activity

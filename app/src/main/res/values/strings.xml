@@ -71,4 +71,10 @@
     <string name="slider_description_3">Let\'s Start Our Journey</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
+    <string name="date_format">DD-MM-YYYY</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="filter_data">Filter Data</string>
+    <string name="avg_distance">Average Distance</string>
+    <string name="nol">0.0</string>
 </resources>
