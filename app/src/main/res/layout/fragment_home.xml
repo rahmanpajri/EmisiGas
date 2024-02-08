@@ -260,7 +260,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/tips"
         android:layout_width="match_parent"
-        android:background="?attr/colorPrimaryContainer"
+        android:background="?attr/colorTertiaryContainer"
         android:layout_height="120dp"
         android:layout_margin="12dp"
         app:layout_constraintTop_toBottomOf="@id/last_trip"/>
@@ -292,5 +292,18 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tips"
         app:layout_constraintTop_toBottomOf="@id/tips_title" />
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="?attr/colorSecondaryContainer"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="14dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

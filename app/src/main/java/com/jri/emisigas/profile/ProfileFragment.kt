@@ -1,5 +1,6 @@
 package com.jri.emisigas.profile
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.jri.emisigas.R
 import com.jri.emisigas.auth.LoginActivity
 import com.jri.emisigas.databinding.FragmentProfileBinding
 import com.jri.emisigas.vehicle.ChangeVehicleActivity
@@ -22,12 +24,17 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private lateinit var auth: FirebaseAuth
     private val binding get() = _binding!!
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view= binding.root
 
         auth = FirebaseAuth.getInstance()
+        progressDialog = ProgressDialog(requireContext(), com.google.android.material.R.style.Theme_AppCompat_Light_Dialog)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.setIndeterminateDrawable(resources.getDrawable(R.drawable.rotate_animation, null))
 
         showProfile()
 
@@ -48,13 +55,21 @@ class ProfileFragment : Fragment() {
         return view
   }
 
+    private fun showLoading() {
+        progressDialog.show()
+    }
+
+    private fun hideLoading() {
+        progressDialog.dismiss()
+    }
+
     private fun showProfile(){
         val user = auth.currentUser
         val db = FirebaseDatabase.getInstance()
-
+        showLoading()
         if(user != null){
             val userRef = db.reference.child("users").child(user.uid)
-
+            hideLoading()
             userRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){
@@ -64,7 +79,7 @@ class ProfileFragment : Fragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Database Error, Check your Connection", Toast.LENGTH_SHORT).show()
                 }
 
             })
@@ -72,13 +87,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logout() {
+        showLoading()
         Firebase.auth.signOut()
         val intent = Intent(requireContext(), LoginActivity::class.java)
+        Toast.makeText(requireContext(), "Logout Success", Toast.LENGTH_SHORT).show()
         startActivity(intent)
+        hideLoading()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-            _binding = null
-        }
     }

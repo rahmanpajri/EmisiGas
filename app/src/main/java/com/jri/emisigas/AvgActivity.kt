@@ -2,8 +2,8 @@ package com.jri.emisigas
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +32,10 @@ class AvgActivity : AppCompatActivity() {
 
     private lateinit var dbRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
+    private lateinit var progressDialog: ProgressDialog
     private val list = ArrayList<Result>()
+
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAvgBinding.inflate(layoutInflater)
@@ -40,6 +43,11 @@ class AvgActivity : AppCompatActivity() {
 
         val btnStartDate = binding.startDateButton
         val btnEndDate = binding.endDateButton
+
+        progressDialog = ProgressDialog(this, com.google.android.material.R.style.Theme_AppCompat_Light_Dialog)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.setIndeterminateDrawable(resources.getDrawable(R.drawable.rotate_animation, null))
 
         selectedStartDate = Calendar.getInstance()
         selectedEndDate = Calendar.getInstance()
@@ -58,6 +66,14 @@ class AvgActivity : AppCompatActivity() {
         binding.filterButton.setOnClickListener {
             getFilteredData()
         }
+    }
+
+    private fun showLoading() {
+        progressDialog.show()
+    }
+
+    private fun hideLoading() {
+        progressDialog.dismiss()
     }
 
     private fun showDatePickerForStartDate() {
@@ -117,6 +133,7 @@ class AvgActivity : AppCompatActivity() {
     }
 
     private fun getFilteredData(){
+        showLoading()
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -126,6 +143,7 @@ class AvgActivity : AppCompatActivity() {
         dbRef.addValueEventListener(object : ValueEventListener {
             @SuppressLint("SetTextI18n")
             override fun onDataChange(snapshot: DataSnapshot) {
+                hideLoading()
                 if(snapshot.exists()){
                     list.clear()
                     var totalResult = 0.0
@@ -164,6 +182,7 @@ class AvgActivity : AppCompatActivity() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
+                hideLoading()
                 Toast.makeText(this@AvgActivity, "Database Error", Toast.LENGTH_SHORT).show()
             }
 

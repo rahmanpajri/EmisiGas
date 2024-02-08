@@ -27,10 +27,10 @@ class JenisBbActivity : AppCompatActivity() {
         rvJenis.layoutManager = LinearLayoutManager(this)
         rvJenis.setHasFixedSize(true)
 
-        getJenisData()
+        getBahanBakar()
     }
 
-    private fun getJenisData() {
+    private fun getBahanBakar() {
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         dbRef = database.reference.child("jenis_bb")
 
@@ -49,7 +49,7 @@ class JenisBbActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@JenisBbActivity, "Database Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@JenisBbActivity, "Database Error, Check your Connection", Toast.LENGTH_SHORT).show()
             }
 
         })

@@ -1,5 +1,7 @@
 package com.jri.emisigas.maps
 
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -49,14 +51,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var auth: FirebaseAuth
     private var isTracking = false
     private lateinit var locationCallback: LocationCallback
+    private lateinit var progressDialog: ProgressDialog
     private var allLatLng = ArrayList<LatLng>()
     private var boundsBuilder = LatLngBounds.Builder()
     private var totalDistance = 0.0
     private var totalIdleDistance = 0.0
 
     // Constants for idle estimation
-    private val IDLE_SPEED_THRESHOLD = 1.0 // km/jam
-    private val IDLE_SPEED_ESTIMATE = 1.0 // km/jam
+    private val IDLE_SPEED_THRESHOLD = 6.5 // km/jam
+    private val IDLE_SPEED_ESTIMATE = 6.5 // km/jam
     private var idleStartTime: Long = 0
     private var isIdleStarted = false
 
@@ -67,6 +70,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -74,6 +78,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         auth = Firebase.auth
+        progressDialog = ProgressDialog(this, com.google.android.material.R.style.Theme_AppCompat_Light_Dialog)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.setIndeterminateDrawable(resources.getDrawable(R.drawable.rotate_animation, null))
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -139,7 +147,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this, "Result added successfully", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to add Result", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to add Result, Check your Connection", Toast.LENGTH_LONG).show()
             }
     }
 
@@ -255,16 +263,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                     val lastLatLng = LatLng(location.latitude, location.longitude)
 
-                    allLatLng.add(lastLatLng)
-                    mMap.addPolyline(
-                        PolylineOptions()
-                            .color(R.color.md_theme_light_primaryContainer)
-                            .width(10f)
-                            .addAll(allLatLng)
-                    )
+                    if(location.speed > IDLE_SPEED_THRESHOLD){
+                        allLatLng.add(lastLatLng)
+                        mMap.addPolyline(
+                            PolylineOptions()
+                                .color(R.color.md_theme_light_primaryContainer)
+                                .width(10f)
+                                .addAll(allLatLng)
+                        )
+                    }
 
                     // Hitung jarak tempuh dari titik sebelumnya
-                    if (allLatLng.size >= 2) {
+                    if (allLatLng.size >= 2 && location.speed > IDLE_SPEED_THRESHOLD) {
                         val distance = calculateDistance(allLatLng[allLatLng.size - 2], lastLatLng)
                         totalDistance += distance
 

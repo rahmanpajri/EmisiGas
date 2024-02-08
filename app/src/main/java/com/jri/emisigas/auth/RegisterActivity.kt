@@ -1,5 +1,6 @@
 package com.jri.emisigas.auth
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +11,13 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.jri.emisigas.MainActivity
+import com.jri.emisigas.R
 import com.jri.emisigas.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +26,16 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
+        progressDialog = ProgressDialog(this, com.google.android.material.R.style.Theme_AppCompat_Light_Dialog)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.setIndeterminateDrawable(resources.getDrawable(R.drawable.rotate_animation, null))
+
         binding.toLogin.setOnClickListener {
+            showLoading()
             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
             startActivity(intent)
+            hideLoading()
         }
 
         binding.registerButton.setOnClickListener {
@@ -43,11 +53,21 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun showLoading() {
+        progressDialog.show()
+    }
+
+    private fun hideLoading() {
+        progressDialog.dismiss()
+    }
+
     private fun register(){
         val fullName = binding.nameEditText.text.toString()
         val email = binding.emailEditText.text.toString()
         val password = binding.passwordEditText.text.toString()
+        showLoading()
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){ task ->
+            hideLoading()
             if(task.isSuccessful){
                 val userId = auth.currentUser!!.uid
 
@@ -68,7 +88,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }else{
                 Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Register Failed, Check your Connection", Toast.LENGTH_LONG).show()
             }
         }
     }

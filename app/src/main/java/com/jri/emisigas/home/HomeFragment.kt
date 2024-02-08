@@ -1,11 +1,13 @@
 package com.jri.emisigas.home
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.jri.emisigas.AvgActivity
+import com.jri.emisigas.R
 import com.jri.emisigas.databinding.FragmentHomeBinding
 import com.jri.emisigas.jenis.JenisBbActivity
 import com.jri.emisigas.result.Result
@@ -30,8 +33,11 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private lateinit var auth: FirebaseAuth
+    private lateinit var imageProgressBar: ImageView
+    private lateinit var progressDialog: ProgressDialog
     val binding get() = _binding!!
 
+  @SuppressLint("UseCompatLoadingForDrawables")
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -42,6 +48,11 @@ class HomeFragment : Fragment() {
       val view = binding.root
 
       auth = FirebaseAuth.getInstance()
+      progressDialog = ProgressDialog(requireActivity(), com.google.android.material.R.style.Theme_AppCompat_Light_Dialog)
+      progressDialog.setMessage("Loading...")
+      progressDialog.setCancelable(false)
+      progressDialog.setIndeterminateDrawable(resources.getDrawable(R.drawable.rotate_animation, null))
+      imageProgressBar = binding.background
 
       binding.button.setOnClickListener {
           val intent = Intent(requireContext(), JenisBbActivity::class.java)
@@ -63,24 +74,40 @@ class HomeFragment : Fragment() {
           startActivity(intent)
       }
 
-      showProfile()
+      if(auth.currentUser != null){
+          showProfile()
+      }else{
+          Toast.makeText(requireContext(), "Please restart the application", Toast.LENGTH_SHORT).show()
+      }
 
       return view
   }
 
+    private fun showLoading() {
+        progressDialog.show()
+        imageProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        progressDialog.dismiss()
+        imageProgressBar.visibility = View.GONE
+    }
+
     private fun showProfile(){
+        showLoading()
         val user = auth.currentUser
         val db = FirebaseDatabase.getInstance()
-
         if(user != null){
             val userRef = db.reference.child("users").child(user.uid)
             userRef.addListenerForSingleValueEvent(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    hideLoading()
                     if(snapshot.exists()){
                         binding.name.text = snapshot.child("fullName").getValue(String::class.java)
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
+                    hideLoading()
                     Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -166,10 +193,5 @@ class HomeFragment : Fragment() {
                 }
             })
         }
-    }
-
-override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

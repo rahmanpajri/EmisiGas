@@ -1,5 +1,7 @@
 package com.jri.emisigas.tips
 
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +20,9 @@ class TipsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTipsBinding
     private lateinit var dbref: DatabaseReference
     private lateinit var rvTips: RecyclerView
+    private lateinit var progressDialog: ProgressDialog
     private val list = ArrayList<Tips>()
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTipsBinding.inflate(layoutInflater)
@@ -31,17 +35,32 @@ class TipsActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.twotone_arrow_back_ios_24)
         }
 
+        progressDialog = ProgressDialog(this, com.google.android.material.R.style.Theme_AppCompat_Light_Dialog)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.setIndeterminateDrawable(resources.getDrawable(R.drawable.rotate_animation, null))
+
         rvTips = binding.rvTips
         rvTips.layoutManager = LinearLayoutManager(this)
         rvTips.setHasFixedSize(true)
-        getListTips()
+        getTips()
     }
 
-    private fun getListTips() {
+    private fun showLoading() {
+        progressDialog.show()
+    }
+
+    private fun hideLoading() {
+        progressDialog.dismiss()
+    }
+
+    private fun getTips() {
+        showLoading()
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         dbref = database.reference.child("tips")
         dbref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                hideLoading()
                 if(snapshot.exists()){
                     for (tipsSnapshot in snapshot.children){
                         val tips = tipsSnapshot.getValue(Tips::class.java)
@@ -53,7 +72,8 @@ class TipsActivity : AppCompatActivity() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@TipsActivity, "Database Error", Toast.LENGTH_SHORT).show()
+                hideLoading()
+                Toast.makeText(this@TipsActivity, "Database Error, Check your Connection", Toast.LENGTH_LONG).show()
             }
         })
     }

@@ -13,6 +13,15 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        getResult()
+
+        binding.toHome.setOnClickListener {
+            val intent = Intent(this@ResultActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun getResult(){
         val totalEmissionString = intent.getStringExtra("TOTAL_EMISSION")
         val totalDistanceString = intent.getStringExtra("TOTAL_DISTANCE")
 
@@ -21,10 +30,5 @@ class ResultActivity : AppCompatActivity() {
 
         binding.totalEmission.text = "$totalEmission kg CO2"
         binding.totalDistance.text = "$totalDistance km"
-
-        binding.toHome.setOnClickListener {
-            val intent = Intent(this@ResultActivity, MainActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

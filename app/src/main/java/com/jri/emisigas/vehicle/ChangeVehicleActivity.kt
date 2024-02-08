@@ -1,5 +1,7 @@
 package com.jri.emisigas.vehicle
 
+import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -10,17 +12,24 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.jri.emisigas.MainActivity
+import com.jri.emisigas.R
 import com.jri.emisigas.databinding.ActivityChangeVehicleBinding
 
 class ChangeVehicleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeVehicleBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var progressDialog: ProgressDialog
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeVehicleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+        progressDialog = ProgressDialog(this, com.google.android.material.R.style.Theme_AppCompat_Light_Dialog)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.setIndeterminateDrawable(resources.getDrawable(R.drawable.rotate_animation, null))
 
         displayVehicleData()
 
@@ -29,12 +38,22 @@ class ChangeVehicleActivity : AppCompatActivity() {
         }
     }
 
+    private fun showLoading() {
+        progressDialog.show()
+    }
+
+    private fun hideLoading() {
+        progressDialog.dismiss()
+    }
+
     private fun displayVehicleData() {
+        showLoading()
         val uid = auth.currentUser!!.uid
         val database = FirebaseDatabase.getInstance().reference.child("vehicle")
 
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                hideLoading()
                 if (snapshot.exists()) {
                     for (data in snapshot.children) {
                         val vehicle = data.getValue(Vehicle::class.java)
@@ -54,7 +73,7 @@ class ChangeVehicleActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle onCancelled
+                hideLoading()
             }
         })
     }
@@ -62,6 +81,7 @@ class ChangeVehicleActivity : AppCompatActivity() {
 
 
     private fun changeData() {
+        showLoading()
         val uid = auth.currentUser!!.uid
         val brand = binding.brandEditText.text.toString()
         val plate = binding.plateEditText.text.toString()
@@ -71,6 +91,7 @@ class ChangeVehicleActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance().reference.child("vehicle")
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                hideLoading()
                 var userVehicleExists = false
                 snapshot.children.forEach { vehicleData ->
                     val vehicle = vehicleData.getValue(Vehicle::class.java)
@@ -85,12 +106,11 @@ class ChangeVehicleActivity : AppCompatActivity() {
                                 finish()
                             }
                             .addOnFailureListener {
-                                Toast.makeText(this@ChangeVehicleActivity, "Failed to update Vehicle", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@ChangeVehicleActivity, "Failed to update, Check your Connection", Toast.LENGTH_LONG).show()
                             }
                     }
                 }
                 if (!userVehicleExists) {
-                    // Jika data kendaraan untuk UID tidak ditemukan, tambahkan data baru
                     database.push().setValue(result)
                         .addOnSuccessListener {
                             Toast.makeText(this@ChangeVehicleActivity, "Vehicle added successfully", Toast.LENGTH_SHORT).show()
@@ -100,12 +120,13 @@ class ChangeVehicleActivity : AppCompatActivity() {
                             finish()
                         }
                         .addOnFailureListener {
-                            Toast.makeText(this@ChangeVehicleActivity, "Failed to add Vehicle", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@ChangeVehicleActivity, "Failed to add Vehicle, Check your Connection", Toast.LENGTH_LONG).show()
                         }
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
+                hideLoading()
                 Toast.makeText(this@ChangeVehicleActivity, "Database Error", Toast.LENGTH_SHORT).show()
             }
         })

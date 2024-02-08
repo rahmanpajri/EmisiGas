@@ -26,10 +26,10 @@ class TahunPembuatanActivity : AppCompatActivity() {
         rvTahun.layoutManager = LinearLayoutManager(this)
         rvTahun.setHasFixedSize(true)
 
-        getTahunData()
+        getTahunPembuatan()
     }
 
-    private fun getTahunData() {
+    private fun getTahunPembuatan() {
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         dbRef = database.reference.child("tahun_pembuatan")
 
@@ -50,7 +50,7 @@ class TahunPembuatanActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@TahunPembuatanActivity, "Database Error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@TahunPembuatanActivity, "Database Error, Check your Connection", Toast.LENGTH_LONG).show()
             }
 
         })
