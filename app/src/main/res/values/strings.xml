@@ -77,4 +77,6 @@
     <string name="filter_data">Filter Data</string>
     <string name="avg_distance">Average Distance</string>
     <string name="nol">0.0</string>
+    <string name="sum_consumption">Sum Consumption</string>
+    <string name="sum_distance">Sum Distance</string>
 </resources>

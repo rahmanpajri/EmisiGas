@@ -173,8 +173,12 @@ class AvgActivity : AppCompatActivity() {
                     decimalFormat.roundingMode = RoundingMode.DOWN
                     val formattedResult = decimalFormat.format(averageResult)
                     val formattedDistance = decimalFormat.format(averageDistance)
+                    val formattedResultSum = decimalFormat.format(totalResult)
+                    val formattedDistanceSum = decimalFormat.format(totalDistance)
                     binding.avgResult.text = "$formattedResult kg CO2"
                     binding.avgDistance.text = "$formattedDistance km"
+                    binding.sumResult.text = "$formattedResultSum kg CO2"
+                    binding.sumDistance.text = "$formattedDistanceSum km"
                     rvHistory.adapter = HistoryAdapter(list)
 
                 }else{
