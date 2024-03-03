@@ -77,15 +77,22 @@ class RegisterActivity : AppCompatActivity() {
                 userData["fullName"] = fullName
                 userData["email"] = email
 
-                database.updateChildren(userData).addOnCompleteListener{
-                    if(it.isSuccessful){
-                        Log.d(TAG, "createUser:Success")
-                        Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
-                        Firebase.auth.signOut()
-                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                        startActivity(intent)
+                auth.currentUser?.sendEmailVerification()
+                    ?.addOnSuccessListener {
+                        Toast.makeText(this,"Please Verify your Email", Toast.LENGTH_SHORT).show()
+                        database.updateChildren(userData).addOnCompleteListener{
+                            if(it.isSuccessful){
+                                Log.d(TAG, "createUser:Success")
+                                Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
+                                Firebase.auth.signOut()
+                                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
                     }
-                }
+                    ?.addOnFailureListener {
+                        Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                    }
             }else{
                 Log.w(TAG, "createUserWithEmail:failure", task.exception)
                 Toast.makeText(this, "Register Failed, Check your Connection", Toast.LENGTH_LONG).show()

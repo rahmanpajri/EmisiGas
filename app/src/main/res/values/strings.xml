@@ -8,7 +8,7 @@
     <string name="enter_your_name">Enter Your Full Name</string>
     <string name="enter_your_email">Enter Your Email</string>
     <string name="enter_your_password">Enter Your Password</string>
-    <string name="new_account">Don\'t have an account yet?<font color="#05c06f"> Register Here</font></string>
+    <string name="new_account">Don\'t have an account yet?<font color="#006C4E"> Register Here</font></string>
     <string name="title_register">Register</string>
     <string name="to_login">Already have an account?<font color="#05c06f"> Login Here</font></string>
     <string name="logout">Logout</string>
@@ -79,4 +79,8 @@
     <string name="nol">0.0</string>
     <string name="sum_consumption">Sum Consumption</string>
     <string name="sum_distance">Sum Distance</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
 </resources>

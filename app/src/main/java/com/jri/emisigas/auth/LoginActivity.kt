@@ -1,9 +1,14 @@
 package com.jri.emisigas.auth
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Patterns
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -41,6 +46,46 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             hideLoading()
         }
+
+        binding.forgotPassword.setOnClickListener {
+            forgotPassword()
+        }
+    }
+
+    private fun forgotPassword() {
+        val builder = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.dialog_forgot, null)
+        val userEmail = view.findViewById<EditText>(R.id.editBox)
+
+        builder.setView(view)
+        val dialog = builder.create()
+
+        view.findViewById<Button>(R.id.btnReset).setOnClickListener {
+            compareEmail(userEmail)
+            dialog.dismiss()
+        }
+
+        view.findViewById<Button>(R.id.btnCancel).setOnClickListener {
+            dialog.dismiss()
+        }
+        if(dialog.window != null){
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
+        }
+        dialog.show()
+    }
+
+    private fun compareEmail(email: EditText){
+        if(email.text.toString().isEmpty()){
+            return
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()){
+            return
+        }
+        auth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                Toast.makeText(this, "Check Your Email", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     public override fun onStart() {
@@ -72,9 +117,14 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 hideLoading()
                 if(task.isSuccessful){
-                    Toast.makeText(this, "Success, Welcome to CarbonTrack", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
+                    val verification = auth.currentUser?.isEmailVerified
+                    if(verification == true){
+                        Toast.makeText(this, "Success, Welcome to CarbonTrack", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(this, "Please verify your Email!", Toast.LENGTH_SHORT).show()
+                    }
                 }else{
                     Toast.makeText(this, "Login Failed, Check your Connection", Toast.LENGTH_LONG).show()
                 }
