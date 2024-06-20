@@ -15,7 +15,7 @@
         android:layout_marginEnd="72dp"
         android:fontFamily="@font/bold"
         android:text="@string/text_result"
-        android:textSize="36sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +23,7 @@
     <ImageView
         android:id="@+id/consumption_background"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="270dp"
         android:layout_marginTop="40dp"
         android:background="?attr/colorTertiaryContainer"
         android:contentDescription="@string/back_to_home"
@@ -34,7 +34,7 @@
     <ImageView
         android:id="@+id/mileage_background"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:layout_marginTop="40dp"
         android:background="?attr/colorTertiaryContainer"
         android:contentDescription="@string/back_to_home"
@@ -46,32 +46,75 @@
         android:id="@+id/consumption_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="12dp"
         android:text="@string/you_co_consumption_is"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/regular"
         app:layout_constraintStart_toStartOf="@+id/consumption_background"
         app:layout_constraintTop_toTopOf="@+id/consumption_background" />
 
     <TextView
-        android:id="@+id/totalEmission"
+        android:id="@+id/totalEmissionCo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
         android:text="@string/start_trip"
-        android:textSize="28sp"
+        android:textSize="26sp"
         android:fontFamily="@font/bold"
         app:layout_constraintStart_toStartOf="@+id/consumption_background"
         app:layout_constraintTop_toBottomOf="@id/consumption_text"/>
 
     <TextView
+        android:id="@+id/consumption_ch4_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/your_ch4_consumption_is"
+        android:textSize="18sp"
+        android:fontFamily="@font/regular"
+        app:layout_constraintStart_toStartOf="@+id/consumption_background"
+        app:layout_constraintTop_toBottomOf="@id/totalEmissionCo2" />
+
+    <TextView
+        android:id="@+id/totalEmission_ch4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/start_trip"
+        android:textSize="26sp"
+        android:fontFamily="@font/bold"
+        app:layout_constraintStart_toStartOf="@+id/consumption_background"
+        app:layout_constraintTop_toBottomOf="@id/consumption_ch4_text"/>
+
+    <TextView
+        android:id="@+id/consumption_n2o_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:text="@string/your_n2o_consumption_is"
+        android:textSize="18sp"
+        android:fontFamily="@font/regular"
+        app:layout_constraintStart_toStartOf="@+id/consumption_background"
+        app:layout_constraintTop_toBottomOf="@id/totalEmission_ch4" />
+
+    <TextView
+        android:id="@+id/totalEmission_n2o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/start_trip"
+        android:textSize="26sp"
+        android:fontFamily="@font/bold"
+        app:layout_constraintStart_toStartOf="@+id/consumption_background"
+        app:layout_constraintTop_toBottomOf="@id/consumption_n2o_text"/>
+
+    <TextView
         android:id="@+id/mileage_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="12dp"
         android:text="@string/your_mileage_is"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:fontFamily="@font/regular"
         app:layout_constraintStart_toStartOf="@+id/mileage_background"
         app:layout_constraintTop_toTopOf="@+id/mileage_background" />
@@ -80,10 +123,9 @@
         android:id="@+id/totalDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
         android:text="@string/your_mileage_is"
-        android:textSize="28sp"
+        android:textSize="26sp"
         android:fontFamily="@font/bold"
         app:layout_constraintStart_toStartOf="@+id/mileage_background"
         app:layout_constraintTop_toBottomOf="@id/mileage_text"/>

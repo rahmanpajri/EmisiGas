@@ -65,10 +65,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var totalIdleTime = 0L
 
-    private var totalMovingEmission = 0.0
-    private var totalIdleEmission = 0.0
+    private var totalMovingEmissionCO2 = 0.0
+    private var totalIdleEmissionCO2 = 0.0
 
+    private var totalMovingEmissionCH4 = 0.0
+    private var totalIdleEmissionCH4 = 0.0
 
+    private var totalMovingEmissionN2O = 0.0
+    private var totalIdleEmissionN2O = 0.0
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,16 +109,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             } else {
                 updateTrackingStatus(false)
                 stopLocationUpdates()
-                val totalEmission = totalIdleEmission + totalMovingEmission
+
+                val totalEmissionCO2 = totalIdleEmissionCO2 + totalMovingEmissionCO2
                 val totalDistance = totalIdleDistance + totalDistance
-                Log.d(TAG, "Total Emission: $totalEmission kg CO2")
-                val formattedTotalEmission = String.format("%.5f", totalEmission)
+                Log.d(TAG, "Total Emission: $totalEmissionCO2 kg CO2")
+                val formattedTotalEmissionCO2 = String.format("%.5f", totalEmissionCO2)
+
+                val totalEmissionCH4 = totalIdleEmissionCH4 + totalMovingEmissionCH4
+                Log.d(TAG, "Total Emission: $totalEmissionCH4 kg CH4")
+
+                val totalEmissionN20 = totalIdleEmissionN2O + totalMovingEmissionN2O
+
                 val formattedTotalDistance = String.format("%.5f", totalDistance)
 
                 addResult()
 
                 val intent = Intent(this@MapsActivity, ResultActivity::class.java)
-                intent.putExtra("TOTAL_EMISSION", formattedTotalEmission)
+                intent.putExtra("TOTAL_EMISSION_CO2", formattedTotalEmissionCO2)
+                intent.putExtra("TOTAL_EMISSION_CH4", totalEmissionCH4)
+                intent.putExtra("TOTAL_EMISSION_N2O", totalEmissionN20)
                 intent.putExtra("TOTAL_DISTANCE", formattedTotalDistance)
                 startActivity(intent)
 
@@ -134,11 +147,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val uid = auth.currentUser!!.uid
         val jenisId = intent.getStringExtra("jenis_id") ?: ""
         val tahunId = intent.getStringExtra("tahun_id") ?: ""
-        val formattedTotalEmission = String.format("%.4f", totalIdleEmission + totalMovingEmission)
+        val formattedTotalEmissionCO2 = String.format("%.4f", totalIdleEmissionCO2 + totalMovingEmissionCO2)
+        val formattedTotalEmissionCH4 = String.format("%.8f", totalIdleEmissionCH4 + totalMovingEmissionCH4)
+        val formattedTotalEmissionN2O = String.format("%.8f", totalIdleEmissionN2O + totalMovingEmissionN2O)
         val formattedTotalDistance = String.format("%.4f", totalIdleDistance + totalDistance)
         val date = SimpleDateFormat("EEEE, dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Date())
 
-        val result = Result(date, formattedTotalDistance, jenisId, formattedTotalEmission, tahunId, uid)
+        val result = Result(date, formattedTotalDistance, jenisId, formattedTotalEmissionCO2, formattedTotalEmissionCH4, formattedTotalEmissionN2O, tahunId, uid)
 
         val database = FirebaseDatabase.getInstance().reference.child("result").push()
 
@@ -278,24 +293,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         val distance = calculateDistance(allLatLng[allLatLng.size - 2], lastLatLng)
                         totalDistance += distance
 
-                        val fuelEfficiency = getFullEfficiency()
-                        Log.d(TAG, "fuelEfficiency: $fuelEfficiency")
+                        val fuelEfficiencyCO2 = getFullEfficiencyCO2()
+                        val fuelEfficiencyCH4 = getFullEfficiencyCH4()
+                        val fuelEfficiencyN2O = getFullEfficiencyN2O()
 
-                        val movingEmission = distance * fuelEfficiency * fuelConsumption
-                        totalMovingEmission += movingEmission
-                        Log.d(TAG, "Moving Emission: $movingEmission kg CO2")
+                        Log.d(TAG, "fuelEfficiency: $fuelEfficiencyCO2")
+
+                        val movingEmissionCO2 = distance * fuelEfficiencyCO2 * fuelConsumption
+                        totalMovingEmissionCO2 += movingEmissionCO2
+                        Log.d(TAG, "Moving Emission: $movingEmissionCO2 kg CO2")
+
+                        val movingEmissionCH4 = distance * fuelEfficiencyCH4 * fuelConsumption
+                        totalMovingEmissionCH4 += movingEmissionCH4
+
+                        val movingEmissionN2O = distance * fuelEfficiencyN2O * fuelConsumption
+                        totalMovingEmissionN2O += movingEmissionN2O
 
                         val idleTimeInSeconds = calculateIdleTime(location)
                         totalIdleTime += idleTimeInSeconds
                         val idleDistance = calculateIdleDistance(idleTimeInSeconds)
                         totalIdleDistance += idleDistance
-                        val idleEmission = idleDistance * fuelEfficiency * fuelConsumptionIdle
-                        totalIdleEmission += idleEmission
-                        Log.d(TAG, "Idle Emission: $idleEmission kg CO2")
 
-                        // Hitung total emisi
-                        val totalEmission = totalMovingEmission + totalIdleEmission
-                        val formattedTotalEmission = String.format("%.4f", totalEmission)
+                        val idleEmissionCO2 = idleDistance * fuelEfficiencyCO2 * fuelConsumptionIdle
+                        totalIdleEmissionCO2 += idleEmissionCO2
+                        Log.d(TAG, "Idle Emission: $idleEmissionCO2 kg CO2")
+
+                        val idleEmissionCH4 = idleDistance * fuelEfficiencyCH4 * fuelConsumptionIdle
+                        totalIdleEmissionCH4 += idleEmissionCH4
+
+                        val idleEmissionN2O = idleDistance * fuelEfficiencyN2O * fuelConsumptionIdle
+                        totalIdleEmissionN2O += idleEmissionN2O
+
                     }
 
                     boundsBuilder.include(lastLatLng)
@@ -306,7 +334,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun getFullEfficiency(): Double{
+    private fun getFullEfficiencyCO2(): Double{
         val jenisId = intent.getStringExtra("jenis_id")
         val tahunId = intent.getStringExtra("tahun_id")
 
@@ -317,6 +345,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             jenisId != "4" && tahunId == "1" -> 73000.0
             jenisId != "4" && tahunId == "2" -> 69300.0
             jenisId != "4" && tahunId == "3" -> 67500.0
+            else -> 0.0
+        }
+    }
+
+    private fun getFullEfficiencyCH4(): Double{
+        val jenisId = intent.getStringExtra("jenis_id")
+        val tahunId = intent.getStringExtra("tahun_id")
+
+        return when {
+            jenisId == "4" && tahunId == "1" -> 9.5
+            jenisId == "4" && tahunId == "2" -> 3.9
+            jenisId == "4" && tahunId == "3" -> 1.6
+            else -> 0.0
+        }
+    }
+
+    private fun getFullEfficiencyN2O(): Double{
+        val jenisId = intent.getStringExtra("jenis_id")
+        val tahunId = intent.getStringExtra("tahun_id")
+
+        return when {
+            jenisId == "4" && tahunId == "1" -> 12.0
+            jenisId == "4" && tahunId == "2" -> 3.9
+            jenisId == "4" && tahunId == "3" -> 1.3
             else -> 0.0
         }
     }
