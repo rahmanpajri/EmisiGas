@@ -33,7 +33,7 @@
     <string name="avg_consumption">Average CO2 Consumption</string>
     <string name="last_trip">Last Trip</string>
     <string name="distance">Distance</string>
-    <string name="consumption">Consumption</string>
+    <string name="consumption_co2">Consumption CO2</string>
     <string name="edit">Edit</string>
     <string name="day">Day</string>
     <string name="date">xx-xx-xxxx</string>
@@ -87,4 +87,6 @@
     <string name="your_n2o_consumption_is">Your N2O consumption is</string>
     <string name="average_n2o_consumption">Average N2O Consumption</string>
     <string name="average_ch4_consumption">Average CH4 Consumption</string>
+    <string name="consumption_ch4">Consumption CH4</string>
+    <string name="consumption_n2o">Consumption N2O</string>
 </resources>

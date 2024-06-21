@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.jri.emisigas.home
 
 import android.annotation.SuppressLint
@@ -120,7 +122,9 @@ class HomeFragment : Fragment() {
                         val formatter = SimpleDateFormat("EEEE, dd-MM-yyyy HH:mm:ss", Locale.getDefault())
                         var latestData: Result? = null
                         var latestDateTime: Date? = null
-                        var totalResult = 0.0
+                        var totalCO2 = 0.0
+                        var totalCH4 = 0.0
+                        var totalN2O = 0.0
                         var totalDistance = 0.0
                         var dataCount = 0
 
@@ -135,28 +139,49 @@ class HomeFragment : Fragment() {
                                             latestData = result
                                         }
                                     }
-                                    totalResult += result.result.toDouble()
-                                    totalDistance += result.distance.toDouble()
+
+                                    // Check for empty strings before parsing
+                                    val resultCO2 = result.result.takeIf { it.isNotEmpty() }?.toDoubleOrNull() ?: 0.0
+                                    val resultCH4 = result.result_CH4.takeIf { it.isNotEmpty() }?.toDoubleOrNull() ?: 0.0
+                                    val resultN2O = result.result_N2O.takeIf { it.isNotEmpty() }?.toDoubleOrNull() ?: 0.0
+                                    val resultDistance = result.distance.takeIf { it.isNotEmpty() }?.toDoubleOrNull() ?: 0.0
+
+                                    totalCO2 += resultCO2
+                                    totalCH4 += resultCH4
+                                    totalN2O += resultN2O
+                                    totalDistance += resultDistance
                                     dataCount++
                                 }
                             }
                         }
                         if (latestData != null) {
                             binding.distance.text = latestData.distance + " km"
-                            binding.consumption.text = latestData.result + " kg CO2"
+                            binding.consumption.text = latestData.result + " kg"
+                            binding.consumptionCh4.text = latestData.result_CH4 + " kg"
+                            binding.consumptionN2o.text = latestData.result_N2O + " kg"
                         } else {
                             binding.distance.text = "0.0 km"
                             binding.consumption.text = "0.0 kg CO2"
+                            binding.consumptionCh4.text = "0.0 kg CH4"
+                            binding.consumptionN2o.text = "0.0 kg N2O"
                         }
 
-                        val averageResult = if (dataCount > 0) totalResult / dataCount else 0.0
+                        val averageCO2 = if (dataCount > 0) totalCO2 / dataCount else 0.0
                         val averageDistance = if (dataCount > 0) totalDistance / dataCount else 0.0
+                        val averageCH4 = if (dataCount > 0) totalCH4 / dataCount else 0.0
+                        val averageN2O = if (dataCount > 0) totalN2O / dataCount else 0.0
                         val decimalFormat = DecimalFormat("#.####")
                         decimalFormat.roundingMode = RoundingMode.DOWN
-                        val formattedResult = decimalFormat.format(averageResult)
+                        val decimalFormat2 = DecimalFormat("#.########")
+                        decimalFormat2.roundingMode = RoundingMode.DOWN
+                        val formattedResultCO2 = decimalFormat.format(averageCO2)
+                        val formattedResultCH4 = decimalFormat2.format(averageCH4)
+                        val formattedResultN2O = decimalFormat2.format(averageN2O)
                         val formattedDistance = decimalFormat.format(averageDistance)
-                        binding.avgCount.text = "$formattedResult kg CO2"
+                        binding.avgCount.text = "$formattedResultCO2 kg"
                         binding.avgDistance.text = "$formattedDistance km"
+                        binding.avgCh4Count.text = "$formattedResultCH4 kg"
+                        binding.avgN2oCount.text = "$formattedResultN2O kg"
 
                     }
                 }
