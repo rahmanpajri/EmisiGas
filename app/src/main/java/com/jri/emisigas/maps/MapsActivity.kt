@@ -65,8 +65,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var totalIdleTime = 0L
 
+    private var totalFuelConsumption = 0.0
+    private var totalFuelConsumptionIdle = 0.0
+
     private var totalMovingEmissionCO2 = 0.0
     private var totalIdleEmissionCO2 = 0.0
+
+    private var totalMovingEmissionTier1CO2 = 0.0
+    private var totalIdleEmissionTier1CO2 = 0.0
+
+    private var totalMovingEmissionTier3CO2 = 0.0
+    private var totalIdleEmissionTier3CO2 = 0.0
 
     private var totalMovingEmissionCH4 = 0.0
     private var totalIdleEmissionCH4 = 0.0
@@ -111,12 +120,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 stopLocationUpdates()
 
                 val totalEmissionCO2 = totalIdleEmissionCO2 + totalMovingEmissionCO2
+                val fuelEfficiencyCO2 = getFullEfficiencyCO2()
+                val totalEmissionTier1CO2 = totalIdleEmissionTier1CO2 + totalMovingEmissionTier1CO2
+                val totalEmissionTier3CO2 = totalIdleEmissionTier3CO2 + totalMovingEmissionTier3CO2
                 val totalDistance = totalIdleDistance + totalDistance
-                Log.d(TAG, "Total Emission: $totalEmissionCO2 kg CO2")
+                val totalFuelConsumption = totalFuelConsumptionIdle + totalFuelConsumption
+                Log.d(TAG, "Total Emission Tier 1 & 3: $totalEmissionCO2 kg CO2")
+                Log.d(TAG, "Total Emission Tier 1: $totalEmissionTier1CO2 kg CO2")
+                Log.d(TAG, "Total Emission Tier 3: $totalEmissionTier3CO2 kg CO2")
+                Log.d(TAG, "Total Distance: $totalDistance km")
+                Log.d(TAG, "Fuel Consumption: $totalFuelConsumption")
+                Log.d(TAG, "Emission Factor: $fuelEfficiencyCO2")
+
                 val formattedTotalEmissionCO2 = String.format("%.5f", totalEmissionCO2)
 
                 val totalEmissionCH4 = totalIdleEmissionCH4 + totalMovingEmissionCH4
-                Log.d(TAG, "Total Emission: $totalEmissionCH4 kg CH4")
 
                 val totalEmissionN20 = totalIdleEmissionN2O + totalMovingEmissionN2O
 
@@ -303,6 +321,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         totalMovingEmissionCO2 += movingEmissionCO2
                         Log.d(TAG, "Moving Emission: $movingEmissionCO2 kg CO2")
 
+                        val movingEmissionTier1CO2 = fuelEfficiencyCO2 * fuelConsumption
+                        totalFuelConsumption += fuelConsumption
+                        totalMovingEmissionTier1CO2 += movingEmissionTier1CO2
+
+                        val movingEmissionTier3CO2 = distance * fuelEfficiencyCO2
+                        totalMovingEmissionTier3CO2 += movingEmissionTier3CO2
+
                         val movingEmissionCH4 = distance * fuelEfficiencyCH4 * fuelConsumption
                         totalMovingEmissionCH4 += movingEmissionCH4
 
@@ -317,6 +342,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         val idleEmissionCO2 = idleDistance * fuelEfficiencyCO2 * fuelConsumptionIdle
                         totalIdleEmissionCO2 += idleEmissionCO2
                         Log.d(TAG, "Idle Emission: $idleEmissionCO2 kg CO2")
+
+                        val idleEmissionTier1CO2 = fuelEfficiencyCO2 * fuelConsumptionIdle
+                        totalFuelConsumptionIdle += fuelConsumptionIdle
+                        totalIdleEmissionTier1CO2 += idleEmissionTier1CO2
+
+                        val idleEmissionTier3CO2 = idleDistance * fuelEfficiencyCO2
+                        totalIdleEmissionTier3CO2 += idleEmissionTier3CO2
 
                         val idleEmissionCH4 = idleDistance * fuelEfficiencyCH4 * fuelConsumptionIdle
                         totalIdleEmissionCH4 += idleEmissionCH4

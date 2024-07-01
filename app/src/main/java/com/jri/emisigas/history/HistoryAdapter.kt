@@ -1,5 +1,6 @@
 package com.jri.emisigas.history
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class HistoryAdapter(private val listHistory: ArrayList<Result>): RecyclerView.A
 
     override fun getItemCount(): Int = listHistory.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val currentItem = listHistory[position]
         val dateString = currentItem.date
@@ -31,8 +33,12 @@ class HistoryAdapter(private val listHistory: ArrayList<Result>): RecyclerView.A
 
         holder.day.text = dayFormat.format(date)
         holder.date.text = dateFormat.format(date)
-        holder.consumption.text = currentItem.result + " kg CO2"
+        holder.consumptionCO2.text = currentItem.result + " kg CO2"
         holder.distance.text = currentItem.distance + " km"
+        val ch4Result = currentItem.result_CH4.ifEmpty { "0.0" }
+        holder.consumptionCH4.text = "$ch4Result kg CH4"
+        val n2oResult = currentItem.result_N2O.ifEmpty { "0.0" }
+        holder.consumption_n2o.text = "$n2oResult kg N2O"
         holder.itemView.setOnClickListener {
             Toast.makeText(holder.itemView.context, "Your CO2 Consumption is ${currentItem.result}", Toast.LENGTH_SHORT).show()
         }
@@ -41,7 +47,9 @@ class HistoryAdapter(private val listHistory: ArrayList<Result>): RecyclerView.A
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day: TextView = itemView.findViewById(R.id.day)
         val date: TextView = itemView.findViewById(R.id.date)
-        val consumption: TextView = itemView.findViewById(R.id.consumption)
+        val consumptionCO2: TextView = itemView.findViewById(R.id.consumption)
         val distance: TextView = itemView.findViewById(R.id.distance)
+        val consumptionCH4: TextView = itemView.findViewById(R.id.consumption_ch4)
+        val consumption_n2o: TextView = itemView.findViewById(R.id.consumption_n2o)
     }
 }

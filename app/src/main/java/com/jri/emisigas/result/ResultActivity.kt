@@ -1,5 +1,6 @@
 package com.jri.emisigas.result
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,21 +24,21 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getResult(){
         val totalEmissionCO2String = intent.getStringExtra("TOTAL_EMISSION_CO2")
         val totalEmissionCH4String = intent.getDoubleExtra("TOTAL_EMISSION_CH4", 0.0)
         val totalEmissionN2OString = intent.getDoubleExtra("TOTAL_EMISSION_N2O", 0.0)
         val totalDistanceString = intent.getStringExtra("TOTAL_DISTANCE")
-        Log.d("ResultActivity", "Total Emission Result: $totalEmissionCH4String kg CH4")
 
         val totalEmissionCO2 = totalEmissionCO2String?.toDoubleOrNull() ?: 0.0
-        val totalEmissionCH4 = String.format("%.8f kg CH4", totalEmissionCH4String)
-        val totalEmissionN2O = String.format("%.8f kg N2O", totalEmissionN2OString)
+        val totalEmissionCH4 = if (totalEmissionCH4String == 0.0) "0.0" else String.format("%.8f", totalEmissionCH4String)
+        val totalEmissionN2O = if (totalEmissionN2OString == 0.0) "0.0" else String.format("%.8f", totalEmissionN2OString)
         val totalDistance = totalDistanceString?.toDoubleOrNull() ?: 0.0
 
         binding.totalEmissionCo2.text = "$totalEmissionCO2 kg CO2"
-        binding.totalEmissionCh4.text = "$totalEmissionCH4"
-        binding.totalEmissionN2o.text = "$totalEmissionN2O"
+        binding.totalEmissionCh4.text = "$totalEmissionCH4 kg CH4"
+        binding.totalEmissionN2o.text = "$totalEmissionN2O kg N2O"
         binding.totalDistance.text = "$totalDistance km"
     }
 }
