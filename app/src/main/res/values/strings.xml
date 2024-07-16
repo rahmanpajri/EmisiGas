@@ -30,7 +30,7 @@
     <string name="car_type">Car Type</string>
     <string name="capacity">xxxx cc</string>
     <string name="license">License</string>
-    <string name="avg_consumption">Average CO2 Consumption</string>
+    <string name="avg_consumption">Average CO2</string>
     <string name="last_trip">Last Trip</string>
     <string name="distance">Distance</string>
     <string name="consumption_co2">Consumption CO2</string>
@@ -77,7 +77,7 @@
     <string name="filter_data">Filter Data</string>
     <string name="avg_distance">Average Distance</string>
     <string name="nol">0.0</string>
-    <string name="sum_consumption">Sum Consumption</string>
+    <string name="sum_consumption_co2">Sum Consumption CO2</string>
     <string name="sum_distance">Sum Distance</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="enter_your_email_address">Enter your email address</string>
@@ -85,8 +85,14 @@
     <string name="reset">Reset</string>
     <string name="your_ch4_consumption_is">Your CH4 consumption is</string>
     <string name="your_n2o_consumption_is">Your N2O consumption is</string>
-    <string name="average_n2o_consumption">Average N2O Consumption</string>
-    <string name="average_ch4_consumption">Average CH4 Consumption</string>
+    <string name="average_n2o_consumption">Average N2O</string>
+    <string name="average_ch4_consumption">Average CH4</string>
     <string name="consumption_ch4">Consumption CH4</string>
     <string name="consumption_n2o">Consumption N2O</string>
+    <string name="prediction">Prediction</string>
+    <string name="input_distance">Input Distance</string>
+    <string name="model_gru">Model GRU</string>
+    <string name="text_0">0 KG CO2</string>
+    <string name="model_lstm">Model LSTM</string>
+    <string name="model_cnn">Model CNN</string>
 </resources>

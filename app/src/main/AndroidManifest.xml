@@ -17,6 +17,9 @@
         android:theme="@style/Theme.EmisiGas"
         tools:targetApi="31">
         <activity
+            android:name=".prediction.PredictionActivity"
+            android:exported="false" />
+        <activity
             android:name=".AvgActivity"
             android:exported="false" />
         <activity

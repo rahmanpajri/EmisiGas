@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".prediction.PredictionActivity">
+
+    <TextView
+        android:id="@+id/distance_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/distance"
+        android:fontFamily="@font/semi_bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/prediction_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/distance_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/prediction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_distance"
+            android:textColorHint="?attr/colorOnTertiaryContainer"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:fontFamily="@font/regular"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/predictionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="?attr/colorPrimaryContainer"
+        android:fontFamily="@font/bold"
+        android:text="@string/prediction"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prediction_input_layout" />
+
+    <TextView
+        android:id="@+id/model_GRU_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/model_gru"
+        android:fontFamily="@font/semi_bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/predictionButton" />
+
+    <TextView
+        android:id="@+id/model_GRU"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/text_0"
+        android:fontFamily="@font/semi_bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/model_GRU_text" />
+
+    <TextView
+        android:id="@+id/model_LSTM_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/model_lstm"
+        android:fontFamily="@font/semi_bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/model_GRU" />
+
+    <TextView
+        android:id="@+id/model_LSTM"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/text_0"
+        android:fontFamily="@font/semi_bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/model_LSTM_text" />
+
+    <TextView
+        android:id="@+id/model_CNN_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/model_cnn"
+        android:fontFamily="@font/semi_bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/model_LSTM" />
+
+    <TextView
+        android:id="@+id/model_CNN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/text_0"
+        android:fontFamily="@font/semi_bold"
+        android:textSize="18sp"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/model_CNN_text" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

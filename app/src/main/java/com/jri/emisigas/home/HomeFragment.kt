@@ -21,6 +21,7 @@ import com.jri.emisigas.AvgActivity
 import com.jri.emisigas.R
 import com.jri.emisigas.databinding.FragmentHomeBinding
 import com.jri.emisigas.jenis.JenisBbActivity
+import com.jri.emisigas.prediction.PredictionActivity
 import com.jri.emisigas.result.Result
 import com.jri.emisigas.tips.TipsActivity
 import com.jri.emisigas.vehicle.ChangeVehicleActivity
@@ -73,6 +74,11 @@ class HomeFragment : Fragment() {
 
       binding.avgConsumption.setOnClickListener {
           val intent = Intent(requireContext(), AvgActivity::class.java)
+          startActivity(intent)
+      }
+
+      binding.prediction.setOnClickListener {
+          val intent = Intent(requireContext(), PredictionActivity::class.java)
           startActivity(intent)
       }
 

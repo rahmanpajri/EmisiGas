@@ -138,7 +138,7 @@
         android:backgroundTint="?attr/colorSecondaryContainer"
         android:textSize="16sp"
         android:text="@string/back_to_home"
-        android:fontFamily="@font/semibold"
+        android:fontFamily="@font/semi_bold"
         android:textColor="?attr/colorOnSecondaryContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

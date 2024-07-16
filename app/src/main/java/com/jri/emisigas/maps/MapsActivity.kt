@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.jri.emisigas.maps
 
 import android.annotation.SuppressLint
@@ -71,11 +73,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var totalMovingEmissionCO2 = 0.0
     private var totalIdleEmissionCO2 = 0.0
 
-    private var totalMovingEmissionTier1CO2 = 0.0
-    private var totalIdleEmissionTier1CO2 = 0.0
-
-    private var totalMovingEmissionTier3CO2 = 0.0
-    private var totalIdleEmissionTier3CO2 = 0.0
+    private var totalMovingEmissionTier2CO2 = 0.0
+    private var totalIdleEmissionTier2CO2 = 0.0
 
     private var totalMovingEmissionCH4 = 0.0
     private var totalIdleEmissionCH4 = 0.0
@@ -121,16 +120,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 val totalEmissionCO2 = totalIdleEmissionCO2 + totalMovingEmissionCO2
                 val fuelEfficiencyCO2 = getFullEfficiencyCO2()
-                val totalEmissionTier1CO2 = totalIdleEmissionTier1CO2 + totalMovingEmissionTier1CO2
-                val totalEmissionTier3CO2 = totalIdleEmissionTier3CO2 + totalMovingEmissionTier3CO2
+                val totalEmissionTier2CO2 = totalIdleEmissionTier2CO2 + totalMovingEmissionTier2CO2
                 val totalDistance = totalIdleDistance + totalDistance
                 val totalFuelConsumption = totalFuelConsumptionIdle + totalFuelConsumption
-                Log.d(TAG, "Total Emission Tier 1 & 3: $totalEmissionCO2 kg CO2")
-                Log.d(TAG, "Total Emission Tier 1: $totalEmissionTier1CO2 kg CO2")
-                Log.d(TAG, "Total Emission Tier 3: $totalEmissionTier3CO2 kg CO2")
-                Log.d(TAG, "Total Distance: $totalDistance km")
-                Log.d(TAG, "Fuel Consumption: $totalFuelConsumption")
-                Log.d(TAG, "Emission Factor: $fuelEfficiencyCO2")
 
                 val formattedTotalEmissionCO2 = String.format("%.5f", totalEmissionCO2)
 
@@ -139,6 +131,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val totalEmissionN20 = totalIdleEmissionN2O + totalMovingEmissionN2O
 
                 val formattedTotalDistance = String.format("%.5f", totalDistance)
+
+//                Log.d(TAG, "Total Emission Tier 1 & 3: $totalEmissionCH4 kg CH4")
+//                Log.d(TAG, "Total Emission Tier 1 & 3: $totalEmissionN20 kg N2O")
+                Log.d(TAG, "Total Emission Tier 2: $totalEmissionTier2CO2 kg CO2")
+                Log.d(TAG, "Total Distance: $totalDistance km")
+                Log.d(TAG, "Fuel Consumption: $totalFuelConsumption")
+                Log.d(TAG, "Emission Factor CO2: $fuelEfficiencyCO2")
 
                 addResult()
 
@@ -323,10 +322,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         val movingEmissionTier1CO2 = fuelEfficiencyCO2 * fuelConsumption
                         totalFuelConsumption += fuelConsumption
-                        totalMovingEmissionTier1CO2 += movingEmissionTier1CO2
-
-                        val movingEmissionTier3CO2 = distance * fuelEfficiencyCO2
-                        totalMovingEmissionTier3CO2 += movingEmissionTier3CO2
+                        totalMovingEmissionTier2CO2 += movingEmissionTier1CO2
 
                         val movingEmissionCH4 = distance * fuelEfficiencyCH4 * fuelConsumption
                         totalMovingEmissionCH4 += movingEmissionCH4
@@ -345,10 +341,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         val idleEmissionTier1CO2 = fuelEfficiencyCO2 * fuelConsumptionIdle
                         totalFuelConsumptionIdle += fuelConsumptionIdle
-                        totalIdleEmissionTier1CO2 += idleEmissionTier1CO2
-
-                        val idleEmissionTier3CO2 = idleDistance * fuelEfficiencyCO2
-                        totalIdleEmissionTier3CO2 += idleEmissionTier3CO2
+                        totalIdleEmissionTier2CO2 += idleEmissionTier1CO2
 
                         val idleEmissionCH4 = idleDistance * fuelEfficiencyCH4 * fuelConsumptionIdle
                         totalIdleEmissionCH4 += idleEmissionCH4

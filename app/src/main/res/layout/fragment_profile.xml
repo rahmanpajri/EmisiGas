@@ -75,7 +75,7 @@
         android:textColor="?attr/colorOnPrimary"
         android:layout_marginTop="36dp"
         android:text="@string/vehicle"
-        android:fontFamily="@font/semibold"
+        android:fontFamily="@font/semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line" />
@@ -88,7 +88,7 @@
         android:textColor="?attr/colorOnPrimary"
         android:layout_marginTop="16dp"
         android:text="@string/logout"
-        android:fontFamily="@font/semibold"
+        android:fontFamily="@font/semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vehicle" />
