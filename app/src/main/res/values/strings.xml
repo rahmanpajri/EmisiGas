@@ -77,7 +77,7 @@
     <string name="filter_data">Filter Data</string>
     <string name="avg_distance">Average Distance</string>
     <string name="nol">0.0</string>
-    <string name="sum_consumption_co2">Sum Consumption CO2</string>
+    <string name="sum_consumption_co2">Sum CO2</string>
     <string name="sum_distance">Sum Distance</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="enter_your_email_address">Enter your email address</string>
@@ -95,4 +95,6 @@
     <string name="text_0">0 KG CO2</string>
     <string name="model_lstm">Model LSTM</string>
     <string name="model_cnn">Model CNN</string>
+    <string name="sum_consumption_n2o">Sum N2O</string>
+    <string name="sum_consumption_ch4">Sum CH4</string>
 </resources>

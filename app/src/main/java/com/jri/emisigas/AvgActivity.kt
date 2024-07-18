@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -148,6 +149,8 @@ class AvgActivity : AppCompatActivity() {
                     list.clear()
                     var totalResult = 0.0
                     var totalDistance = 0.0
+                    var totalCH4 = 0.0
+                    var totalN2O = 0.0
                     var dataCount = 0
                     for (resultSnapshot in snapshot.children){
                         val result = resultSnapshot.getValue(Result::class.java)
@@ -161,6 +164,9 @@ class AvgActivity : AppCompatActivity() {
                                 ) {
                                     totalResult += result.result.toDouble()
                                     totalDistance += result.distance.toDouble()
+                                    totalCH4 += if (result.result_CH4.isEmpty()) 0.0 else result.result_CH4.toDouble()
+                                    Log.d("total ch4", "$totalCH4")
+                                    totalN2O += if (result.result_N2O.isEmpty()) 0.0 else result.result_N2O.toDouble()
                                     dataCount++
                                     list.add(result)
                                 }
@@ -169,16 +175,28 @@ class AvgActivity : AppCompatActivity() {
                     }
                     val averageResult = if (dataCount > 0) totalResult / dataCount else 0.0
                     val averageDistance = if (dataCount > 0) totalDistance / dataCount else 0.0
+                    val averageCH4 = if (dataCount > 0) totalCH4 / dataCount else 0.0
+                    Log.d("avg ch4", "$averageCH4")
+                    val averageN2O = if (dataCount > 0) totalN2O / dataCount else 0.0
                     val decimalFormat = DecimalFormat("#.####")
+                    val decimalFormat2 = DecimalFormat("#.########")
                     decimalFormat.roundingMode = RoundingMode.DOWN
                     val formattedResult = decimalFormat.format(averageResult)
                     val formattedDistance = decimalFormat.format(averageDistance)
+                    val formattedCH4 = decimalFormat2.format(averageCH4)
+                    val formattedN2O = decimalFormat2.format(averageN2O)
                     val formattedResultSum = decimalFormat.format(totalResult)
                     val formattedDistanceSum = decimalFormat.format(totalDistance)
+                    val formattedCH4Sum = decimalFormat2.format(totalCH4)
+                    val formattedN2OSum = decimalFormat2.format(totalN2O)
                     binding.avgResult.text = "$formattedResult kg CO2"
                     binding.avgDistance.text = "$formattedDistance km"
+                    binding.avgCh4Count.text = "$formattedCH4 kg CH4"
+                    binding.avgN2oCount.text = "$formattedN2O kg N2O"
                     binding.sumResult.text = "$formattedResultSum kg CO2"
                     binding.sumDistance.text = "$formattedDistanceSum km"
+                    binding.sumCh4.text = "$formattedCH4Sum kg CH4"
+                    binding.sumN2o.text = "$formattedN2OSum kg N2O"
                     rvHistory.adapter = HistoryAdapter(list)
 
                 }else{
