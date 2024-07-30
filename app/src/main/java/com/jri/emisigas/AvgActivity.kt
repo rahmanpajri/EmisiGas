@@ -207,7 +207,6 @@ class AvgActivity : AppCompatActivity() {
                 hideLoading()
                 Toast.makeText(this@AvgActivity, "Database Error", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 }

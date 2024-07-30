@@ -299,7 +299,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         allLatLng.add(lastLatLng)
                         mMap.addPolyline(
                             PolylineOptions()
-                                .color(R.color.md_theme_light_primaryContainer)
+                                .color(R.color.md_theme_primaryContainer)
                                 .width(10f)
                                 .addAll(allLatLng)
                         )

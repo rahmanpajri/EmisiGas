@@ -97,4 +97,9 @@
     <string name="model_cnn">Model CNN</string>
     <string name="sum_consumption_n2o">Sum N2O</string>
     <string name="sum_consumption_ch4">Sum CH4</string>
+    <string name="prediction_seasonal">Prediction Seasonal</string>
+    <string name="date_text">Date</string>
+    <string name="prediction_gru">Prediction GRU</string>
+    <string name="prediction_lstm">Prediction LSTM</string>
+    <string name="prediction_cnn">Prediction CNN</string>
 </resources>

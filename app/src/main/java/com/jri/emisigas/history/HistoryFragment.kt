@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +36,6 @@ class HistoryFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
     ): View {
-        val historyViewModel = ViewModelProvider(this)[HistoryViewModel::class.java]
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val view = binding.root
