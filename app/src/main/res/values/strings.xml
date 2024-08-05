@@ -102,4 +102,5 @@
     <string name="prediction_gru">Prediction GRU</string>
     <string name="prediction_lstm">Prediction LSTM</string>
     <string name="prediction_cnn">Prediction CNN</string>
+    <string name="export_pdf">Export PDF</string>
 </resources>

@@ -142,218 +142,96 @@
                 app:layout_constraintStart_toStartOf="@+id/mileage_background"
                 app:layout_constraintTop_toBottomOf="@id/mileage_text" />
 
-            <TextView
-                android:id="@+id/model_GRU_text"
+            <Spinner
+                android:outlineProvider="bounds"
+                android:id="@+id/prediction_selector"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/semi_bold"
-                android:text="@string/model_gru"
-                android:textColor="?attr/colorOnTertiaryContainer"
-                android:textSize="18sp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintTop_toBottomOf="@+id/mileage_background"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mileage_background" />
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-            <TextView
-                android:id="@+id/model_GRU"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/semi_bold"
-                android:text="@string/text_0"
-                android:textColor="?attr/colorOnTertiaryContainer"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/model_GRU_text" />
-
-            <TextView
-                android:id="@+id/model_LSTM_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/semi_bold"
-                android:text="@string/model_lstm"
-                android:textColor="?attr/colorOnTertiaryContainer"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/model_GRU" />
-
-            <TextView
-                android:id="@+id/model_LSTM"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/semi_bold"
-                android:text="@string/text_0"
-                android:textColor="?attr/colorOnTertiaryContainer"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/model_LSTM_text" />
-
-            <TextView
-                android:id="@+id/model_CNN_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/semi_bold"
-                android:text="@string/model_cnn"
-                android:textColor="?attr/colorOnTertiaryContainer"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/model_LSTM" />
-
-            <TextView
-                android:id="@+id/model_CNN"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/semi_bold"
-                android:text="@string/text_0"
-                android:textColor="?attr/colorOnTertiaryContainer"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/model_CNN_text" />
-
-            <TextView
-                android:id="@+id/prediction_GRU"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/export_prediction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/prediction_gru"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="?attr/colorTertiaryContainer"
+                android:fontFamily="@font/semi_bold"
+                android:text="@string/export_pdf"
+                android:textColor="?attr/colorOnTertiaryContainer"
                 android:textSize="16sp"
-                android:fontFamily="@font/bold"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/model_CNN"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <TableLayout
-                android:id="@+id/table_GRU"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="1"
-                android:background="?attr/colorOnPrimary"
-                app:layout_constraintTop_toBottomOf="@id/prediction_GRU">
-
-                <TableRow android:background="?attr/colorPrimary">
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:background="?attr/colorOnPrimary"
-                        android:padding="8dp"
-                        android:text="@string/date_text"
-                        android:fontFamily="@font/bold"
-                        android:textColor="?attr/colorPrimary"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:background="?attr/colorOnPrimary"
-                        android:padding="8dp"
-                        android:text="@string/prediction"
-                        android:fontFamily="@font/bold"
-                        android:textColor="?attr/colorPrimary"/>
-                </TableRow>
-            </TableLayout>
-
-            <TextView
-                android:id="@+id/prediction_LSTM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/prediction_lstm"
-                android:textSize="16sp"
-                android:fontFamily="@font/bold"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/table_GRU"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <TableLayout
-                android:id="@+id/table_LSTM"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="1"
-                android:background="?attr/colorOnPrimary"
-                app:layout_constraintTop_toBottomOf="@id/prediction_LSTM">
-
-                <TableRow android:background="?attr/colorPrimary">
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:background="?attr/colorOnPrimary"
-                        android:padding="8dp"
-                        android:text="@string/date_text"
-                        android:fontFamily="@font/bold"
-                        android:textColor="?attr/colorPrimary"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:background="?attr/colorOnPrimary"
-                        android:padding="8dp"
-                        android:text="@string/prediction"
-                        android:fontFamily="@font/bold"
-                        android:textColor="?attr/colorPrimary"/>
-                </TableRow>
-            </TableLayout>
-
-            <TextView
-                android:id="@+id/prediction_CNN"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/prediction_cnn"
-                android:textSize="16sp"
-                android:fontFamily="@font/bold"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/table_LSTM"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <TableLayout
-                android:id="@+id/table_CNN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="1"
-                android:background="?attr/colorOnPrimary"
-                app:layout_constraintTop_toBottomOf="@id/prediction_CNN">
-
-                <TableRow android:background="?attr/colorPrimary">
-                    <TextView
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:background="?attr/colorOnPrimary"
-                        android:padding="8dp"
-                        android:text="@string/date_text"
-                        android:fontFamily="@font/bold"
-                        android:textColor="?attr/colorPrimary"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:background="?attr/colorOnPrimary"
-                        android:padding="8dp"
-                        android:text="@string/prediction"
-                        android:fontFamily="@font/bold"
-                        android:textColor="?attr/colorPrimary"/>
-                </TableRow>
-            </TableLayout>
+                app:layout_constraintEnd_toStartOf="@id/to_home"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prediction_selector" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/to_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="?attr/colorSecondaryContainer"
                 android:fontFamily="@font/semi_bold"
                 android:text="@string/back_to_home"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/table_CNN" />
+                app:layout_constraintStart_toEndOf="@id/export_prediction"
+                app:layout_constraintTop_toBottomOf="@+id/prediction_selector" />
 
+            <TextView
+                android:id="@+id/prediction_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prediction"
+                android:textSize="16sp"
+                android:fontFamily="@font/bold"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/export_prediction"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TableLayout
+                android:id="@+id/table_prediction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                android:background="?attr/colorOnPrimary"
+                app:layout_constraintTop_toBottomOf="@id/prediction_text">
+
+                <TableRow android:background="?attr/colorPrimary">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:background="?attr/colorOnPrimary"
+                        android:padding="8dp"
+                        android:text="@string/date_text"
+                        android:fontFamily="@font/bold"
+                        android:textColor="?attr/colorPrimary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:background="?attr/colorOnPrimary"
+                        android:padding="8dp"
+                        android:text="@string/distance"
+                        android:fontFamily="@font/bold"
+                        android:textColor="?attr/colorPrimary"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:background="?attr/colorOnPrimary"
+                        android:padding="8dp"
+                        android:text="@string/prediction"
+                        android:fontFamily="@font/bold"
+                        android:textColor="?attr/colorPrimary"/>
+                </TableRow>
+            </TableLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
