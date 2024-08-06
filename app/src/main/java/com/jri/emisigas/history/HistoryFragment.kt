@@ -26,6 +26,7 @@ class HistoryFragment : Fragment() {
     private lateinit var rvHistory: RecyclerView
     private lateinit var dbRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
+    private lateinit var valueEventListener: ValueEventListener
     private val list = ArrayList<Result>()
     private val binding get() = _binding!!
     private lateinit var progressDialog: ProgressDialog
@@ -54,12 +55,17 @@ class HistoryFragment : Fragment() {
     }
 
     private fun showLoading() {
-        progressDialog.show()
+        if (isAdded) {
+            progressDialog.show()
+        }
     }
 
     private fun hideLoading() {
-        progressDialog.dismiss()
+        if (isAdded) {
+            progressDialog.dismiss()
+        }
     }
+
 
     private fun getHistory() {
         showLoading()
@@ -68,28 +74,40 @@ class HistoryFragment : Fragment() {
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
         dbRef = database.reference.child("result")
-        dbRef.addValueEventListener(object : ValueEventListener {
+        valueEventListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 hideLoading()
                 if(snapshot.exists()){
+                    list.clear() // Clear list to avoid duplicate data
                     for (resultSnapshot in snapshot.children){
                         val result = resultSnapshot.getValue(Result::class.java)
                         if (result != null) {
                             if (result.user_id == user?.uid) {
-                                list.add(result!!)
+                                list.add(result)
                             }
                         }
                     }
                     rvHistory.adapter = HistoryAdapter(list)
                 }else{
-                    Toast.makeText(requireContext(), "Data is Null", Toast.LENGTH_SHORT).show()
+                    if (isAdded) {
+                        Toast.makeText(requireContext(), "Data is Null", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
                 hideLoading()
-                Toast.makeText(requireContext(), "Database Error, Check your Connection", Toast.LENGTH_SHORT).show()
+                if (isAdded) {
+                    Toast.makeText(requireContext(), "Database Error, Check your Connection", Toast.LENGTH_SHORT).show()
+                }
             }
+        }
+        dbRef.addValueEventListener(valueEventListener)
+    }
 
-        })
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dbRef.removeEventListener(valueEventListener)
+        _binding = null
     }
 }
